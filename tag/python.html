@@ -1,37 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="english">
 <head>
         <meta charset="utf-8" />
-        <title>RobLW Data Analytics Blog - python</title>
+        <title>RobLW Data Analytics Blog - Python</title>
         <link rel="stylesheet" href="https://RobLW.GitHub.io/theme/css/main.css" />
         <link href="https://RobLW.GitHub.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="RobLW Data Analytics Blog Atom Feed" />
-
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
                 <h1><a href="https://RobLW.GitHub.io/">RobLW Data Analytics Blog </a></h1>
                 <nav><ul>
-                    <li><a href="https://RobLW.GitHub.io/category/posts.html">posts</a></li>
+                    <li><a href="https://RobLW.GitHub.io/category/notebook.html">Notebook</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://RobLW.GitHub.io/first-post.html">First Post</a></h1>
+                    <h1 class="entry-title"><a href="https://RobLW.GitHub.io/DQIO-Hacker-News.html">Hacker News Posts explored</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2019-05-28T13:01:00+01:00">
-                Published: Tue 28 May 2019
+        <abbr class="published" title="2019-05-29T10:30:00+01:00">
+                Published: Wed 29 May 2019
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="https://RobLW.GitHub.io/author/rob-williams.html">Rob Williams</a>
         </address>
-<p>In <a href="https://RobLW.GitHub.io/category/posts.html">posts</a>.</p>
-<p>tags: <a href="https://RobLW.GitHub.io/tag/python.html">python</a> </p>
+<p>In <a href="https://RobLW.GitHub.io/category/notebook.html">Notebook</a>.</p>
+<p>tags: <a href="https://RobLW.GitHub.io/tag/python.html">Python</a> <a href="https://RobLW.GitHub.io/tag/dataquest.html">DataQuest</a> <a href="https://RobLW.GitHub.io/tag/data-analytics.html">Data Analytics</a> <a href="https://RobLW.GitHub.io/tag/notebook.html">Notebook</a> </p>
 </footer><!-- /.post-info --><style type="text/css">/*!
 *
 * IPython notebook
@@ -1181,12 +1177,51 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Hacker-News---Ask-vs-Show">Hacker News - Ask vs Show<a class="anchor-link" href="#Hacker-News---Ask-vs-Show">&#182;</a></h1><p>This notebook runs through the HN public data and provides analyse on whether ASK HN or SHOW HK posts receive more responses.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello, Manpower!&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">csv</span> <span class="k">import</span> <span class="n">reader</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;hacker_news.csv&#39;</span><span class="p">)</span>
+<span class="n">filereader</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">filereader</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="n">hn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="n">hn</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1203,7 +1238,7 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Hello, Manpower!
+<pre>[&#39;id&#39;, &#39;title&#39;, &#39;url&#39;, &#39;num_points&#39;, &#39;num_comments&#39;, &#39;author&#39;, &#39;created_at&#39;]
 </pre>
 </div>
 </div>
@@ -1214,24 +1249,10 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hn</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -1248,7 +1269,7 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>10
+<pre>[[&#39;12224879&#39;, &#39;Interactive Dynamic Video&#39;, &#39;http://www.interactivedynamicvideo.com/&#39;, &#39;386&#39;, &#39;52&#39;, &#39;ne0phyte&#39;, &#39;8/4/2016 11:52&#39;], [&#39;10975351&#39;, &#39;How to Use Open Source and Shut the Fuck Up at the Same Time&#39;, &#39;http://hueniverse.com/2016/01/26/how-to-use-open-source-and-shut-the-fuck-up-at-the-same-time/&#39;, &#39;39&#39;, &#39;10&#39;, &#39;josep2&#39;, &#39;1/26/2016 19:30&#39;], [&#39;11964716&#39;, &#34;Florida DJs May Face Felony for April Fools&#39; Water Joke&#34;, &#39;http://www.thewire.com/entertainment/2013/04/florida-djs-april-fools-water-joke/63798/&#39;, &#39;2&#39;, &#39;1&#39;, &#39;vezycash&#39;, &#39;6/23/2016 22:20&#39;], [&#39;11919867&#39;, &#39;Technology ventures: From Idea to Enterprise&#39;, &#39;https://www.amazon.com/Technology-Ventures-Enterprise-Thomas-Byers/dp/0073523429&#39;, &#39;3&#39;, &#39;1&#39;, &#39;hswarna&#39;, &#39;6/17/2016 0:01&#39;]]
 </pre>
 </div>
 </div>
@@ -1259,28 +1280,22 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span>  <span class="nn">plt</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ask_posts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">show_posts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">other_posts</span> <span class="o">=</span> <span class="p">[]</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Jake&#39;</span><span class="p">,</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;Jack&#39;</span><span class="p">]</span>
-<span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Names&#39;</span><span class="p">:</span> <span class="n">names</span><span class="p">,</span> <span class="s1">&#39;Count&#39;</span><span class="p">:</span> <span class="n">count</span><span class="p">}</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">hn</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ask hn&#39;</span><span class="p">):</span>
+        <span class="n">ask_posts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;show hn&#39;</span><span class="p">):</span>
+        <span class="n">show_posts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">other_posts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ask_posts: &#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ask_posts</span><span class="p">),</span> <span class="s1">&#39; show_posts: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">show_posts</span><span class="p">),</span> <span class="s1">&#39; other_posts: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_posts</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -1297,10 +1312,7 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>   Count Names
-0      5  Jake
-1     10  John
-2     12  Jack
+<pre>ask_posts:  1744  show_posts:  1162  other_posts:  17194
 </pre>
 </div>
 </div>
@@ -1311,11 +1323,23 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Names&#39;</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Count&#39;</span><span class="p">],</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Names&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;My graph&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_ask_comments</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">ask_posts</span><span class="p">:</span>
+    <span class="n">total_ask_comments</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    
+<span class="n">avg_ask_comments</span> <span class="o">=</span> <span class="n">total_ask_comments</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ask_posts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">avg_ask_comments</span><span class="p">)</span>
+
+<span class="n">total_show_comments</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">show_posts</span><span class="p">:</span>
+    <span class="n">total_show_comments</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    
+<span class="n">avg_show_comments</span> <span class="o">=</span> <span class="n">total_show_comments</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">show_posts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">avg_show_comments</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1331,103 +1355,219 @@ h6:hover .anchor-link {
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-6-7daf529c2ba0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>plt<span class="ansi-yellow-intense-fg ansi-bold">.</span>plot<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;Names&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>data<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;Count&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>xlabel<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#39;Names&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>ylabel<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#39;Count&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> title<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#39;My graph&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      2</span> plt<span class="ansi-yellow-intense-fg ansi-bold">.</span>show<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\pyplot.py</span> in <span class="ansi-cyan-fg">plot</span><span class="ansi-blue-intense-fg ansi-bold">(*args, **kwargs)</span>
-<span class="ansi-green-fg">   3259</span>                       mplDeprecation)
-<span class="ansi-green-fg">   3260</span>     <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 3261</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>ret <span class="ansi-yellow-intense-fg ansi-bold">=</span> ax<span class="ansi-yellow-intense-fg ansi-bold">.</span>plot<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   3262</span>     <span class="ansi-green-intense-fg ansi-bold">finally</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   3263</span>         ax<span class="ansi-yellow-intense-fg ansi-bold">.</span>_hold <span class="ansi-yellow-intense-fg ansi-bold">=</span> washold
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\__init__.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-intense-fg ansi-bold">(ax, *args, **kwargs)</span>
-<span class="ansi-green-fg">   1715</span>                     warnings.warn(msg % (label_namer, func.__name__),
-<span class="ansi-green-fg">   1716</span>                                   RuntimeWarning, stacklevel=2)
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1717</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">return</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>ax<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1718</span>         pre_doc <span class="ansi-yellow-intense-fg ansi-bold">=</span> inner<span class="ansi-yellow-intense-fg ansi-bold">.</span>__doc__
-<span class="ansi-green-fg">   1719</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> pre_doc <span class="ansi-green-intense-fg ansi-bold">is</span> <span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\axes\_axes.py</span> in <span class="ansi-cyan-fg">plot</span><span class="ansi-blue-intense-fg ansi-bold">(self, *args, **kwargs)</span>
-<span class="ansi-green-fg">   1370</span>         kwargs <span class="ansi-yellow-intense-fg ansi-bold">=</span> cbook<span class="ansi-yellow-intense-fg ansi-bold">.</span>normalize_kwargs<span class="ansi-yellow-intense-fg ansi-bold">(</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">,</span> _alias_map<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1371</span> 
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1372</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">for</span> line <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_lines<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   1373</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>add_line<span class="ansi-yellow-intense-fg ansi-bold">(</span>line<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1374</span>             lines<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>line<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\axes\_base.py</span> in <span class="ansi-cyan-fg">_grab_next_args</span><span class="ansi-blue-intense-fg ansi-bold">(self, *args, **kwargs)</span>
-<span class="ansi-green-fg">    402</span>                 this <span class="ansi-yellow-intense-fg ansi-bold">+=</span> args<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-fg">    403</span>                 args <span class="ansi-yellow-intense-fg ansi-bold">=</span> args<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">:</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 404</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">for</span> seg <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_plot_args<span class="ansi-yellow-intense-fg ansi-bold">(</span>this<span class="ansi-yellow-intense-fg ansi-bold">,</span> kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    405</span>                 <span class="ansi-green-intense-fg ansi-bold">yield</span> seg
-<span class="ansi-green-fg">    406</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\axes\_base.py</span> in <span class="ansi-cyan-fg">_plot_args</span><span class="ansi-blue-intense-fg ansi-bold">(self, tup, kwargs)</span>
-<span class="ansi-green-fg">    392</span>         ncx<span class="ansi-yellow-intense-fg ansi-bold">,</span> ncy <span class="ansi-yellow-intense-fg ansi-bold">=</span> x<span class="ansi-yellow-intense-fg ansi-bold">.</span>shape<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">.</span>shape<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
-<span class="ansi-green-fg">    393</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> j <span class="ansi-green-intense-fg ansi-bold">in</span> xrange<span class="ansi-yellow-intense-fg ansi-bold">(</span>max<span class="ansi-yellow-intense-fg ansi-bold">(</span>ncx<span class="ansi-yellow-intense-fg ansi-bold">,</span> ncy<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 394</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>seg <span class="ansi-yellow-intense-fg ansi-bold">=</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>x<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">:</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> j <span class="ansi-yellow-intense-fg ansi-bold">%</span> ncx<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">:</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> j <span class="ansi-yellow-intense-fg ansi-bold">%</span> ncy<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> kw<span class="ansi-yellow-intense-fg ansi-bold">,</span> kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    395</span>             ret<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>seg<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    396</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> ret
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\axes\_base.py</span> in <span class="ansi-cyan-fg">_makeline</span><span class="ansi-blue-intense-fg ansi-bold">(self, x, y, kw, kwargs)</span>
-<span class="ansi-green-fg">    299</span>         default_dict <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_getdefaults<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> kw<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    300</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_setdefaults<span class="ansi-yellow-intense-fg ansi-bold">(</span>default_dict<span class="ansi-yellow-intense-fg ansi-bold">,</span> kw<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 301</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>seg <span class="ansi-yellow-intense-fg ansi-bold">=</span> mlines<span class="ansi-yellow-intense-fg ansi-bold">.</span>Line2D<span class="ansi-yellow-intense-fg ansi-bold">(</span>x<span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kw<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    302</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> seg
-<span class="ansi-green-fg">    303</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\lines.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, xdata, ydata, linewidth, linestyle, color, marker, markersize, markeredgewidth, markeredgecolor, markerfacecolor, markerfacecoloralt, fillstyle, antialiased, dash_capstyle, solid_capstyle, dash_joinstyle, solid_joinstyle, pickradius, drawstyle, markevery, **kwargs)</span>
-<span class="ansi-green-fg">    424</span>         <span class="ansi-red-intense-fg ansi-bold"># update kwargs before updating data to give the caller a</span>
-<span class="ansi-green-fg">    425</span>         <span class="ansi-red-intense-fg ansi-bold"># chance to init axes (and hence unit support)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 426</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>update<span class="ansi-yellow-intense-fg ansi-bold">(</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    427</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>pickradius <span class="ansi-yellow-intense-fg ansi-bold">=</span> pickradius
-<span class="ansi-green-fg">    428</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>ind_offset <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-cyan-intense-fg ansi-bold">0</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\artist.py</span> in <span class="ansi-cyan-fg">update</span><span class="ansi-blue-intense-fg ansi-bold">(self, props)</span>
-<span class="ansi-green-fg">    900</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    901</span>             ret = [_update_property(self, k, v)
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 902</span><span class="ansi-yellow-intense-fg ansi-bold">                    for k, v in props.items()]
-</span><span class="ansi-green-fg">    903</span>         <span class="ansi-green-intense-fg ansi-bold">finally</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    904</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>eventson <span class="ansi-yellow-intense-fg ansi-bold">=</span> store
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\artist.py</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-intense-fg ansi-bold">(.0)</span>
-<span class="ansi-green-fg">    900</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    901</span>             ret = [_update_property(self, k, v)
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 902</span><span class="ansi-yellow-intense-fg ansi-bold">                    for k, v in props.items()]
-</span><span class="ansi-green-fg">    903</span>         <span class="ansi-green-intense-fg ansi-bold">finally</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    904</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>eventson <span class="ansi-yellow-intense-fg ansi-bold">=</span> store
-
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Continuum\anaconda3\lib\site-packages\matplotlib\artist.py</span> in <span class="ansi-cyan-fg">_update_property</span><span class="ansi-blue-intense-fg ansi-bold">(self, k, v)</span>
-<span class="ansi-green-fg">    893</span>                 func <span class="ansi-yellow-intense-fg ansi-bold">=</span> getattr<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;set_&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span> k<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    894</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> callable<span class="ansi-yellow-intense-fg ansi-bold">(</span>func<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 895</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span><span class="ansi-green-intense-fg ansi-bold">raise</span> AttributeError<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;Unknown property %s&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">%</span> k<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    896</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>v<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    897</span> 
-
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: Unknown property xlabel</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>14.038417431192661
+10.31669535283993
+</pre>
 </div>
 </div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analysis-Thought">Analysis Thought<a class="anchor-link" href="#Analysis-Thought">&#182;</a></h3><p>It would appear that Ask HN receives more interactions with the viewer base then Show HN does.
+This is ontop of the fact there are a larger number of Ask HN posts compared to Show HN posts.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Which-hour-was-content-created-for-the-highest-comment-posts?">Which hour was content created for the highest comment posts?<a class="anchor-link" href="#Which-hour-was-content-created-for-the-highest-comment-posts?">&#182;</a></h1><p>This next section produces a frequency table of the hour content was created on Ask HN posts. This shows us the best time to post your content to rapidly get maximum reponses as fast as possible and move up in the "hot lists" etc.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">ask_posts</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">post</span><span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counts_by_hour</span><span class="p">,</span> <span class="n">comments_by_hour</span> <span class="o">=</span> <span class="p">{},{}</span>
+<span class="n">dtformat</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %H:%M&#39;</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtformat</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span>
+    
+    <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">counts_by_hour</span><span class="p">:</span>
+        <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        
+    <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">comments_by_hour</span><span class="p">:</span>
+        <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we are looking for the average number of comments per post, at each hour of the day</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_by_hour</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">counts_by_hour</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="s1">&#39; / &#39;</span><span class="p">,</span> <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="s1">&#39; = &#39;</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">])</span>
+    <span class="n">avg_by_hour</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">h</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]])</span>    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
     <div class="prompt"></div>
 
 
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Hour 0 :  447  /  55  =  8.127272727272727
+Hour 1 :  683  /  60  =  11.383333333333333
+Hour 2 :  1381  /  58  =  23.810344827586206
+Hour 3 :  421  /  54  =  7.796296296296297
+Hour 4 :  337  /  47  =  7.170212765957447
+Hour 5 :  464  /  46  =  10.08695652173913
+Hour 6 :  397  /  44  =  9.022727272727273
+Hour 7 :  267  /  34  =  7.852941176470588
+Hour 8 :  492  /  48  =  10.25
+Hour 9 :  251  /  45  =  5.5777777777777775
+Hour 10 :  793  /  59  =  13.440677966101696
+Hour 11 :  641  /  58  =  11.051724137931034
+Hour 12 :  687  /  73  =  9.41095890410959
+Hour 13 :  1253  /  85  =  14.741176470588234
+Hour 14 :  1416  /  107  =  13.233644859813085
+Hour 15 :  4477  /  116  =  38.5948275862069
+Hour 16 :  1814  /  108  =  16.796296296296298
+Hour 17 :  1146  /  100  =  11.46
+Hour 18 :  1439  /  109  =  13.20183486238532
+Hour 19 :  1188  /  110  =  10.8
+Hour 20 :  1722  /  80  =  21.525
+Hour 21 :  1745  /  109  =  16.009174311926607
+Hour 22 :  479  /  71  =  6.746478873239437
+Hour 23 :  543  /  68  =  7.985294117647059
+</pre>
+</div>
 </div>
 
 </div>
+</div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">swap_avg_by_hour</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">hour</span> <span class="ow">in</span> <span class="n">avg_by_hour</span><span class="p">:</span>
+    <span class="n">swap_avg_by_hour</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">hour</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">hour</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sorted_swap</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">swap_avg_by_hour</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 5 Hours for Ask Posts Comments&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sorted_swap</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{h}</span><span class="s1">: </span><span class="si">{avg:.2f}</span><span class="s1"> average comments per post&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">&quot;%H&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M&quot;</span><span class="p">),</span> <span class="n">avg</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Top 5 Hours for Ask Posts Comments
+15:00: 38.59 average comments per post
+02:00: 23.81 average comments per post
+20:00: 21.52 average comments per post
+16:00: 16.80 average comments per post
+21:00: 16.01 average comments per post
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -1465,9 +1605,37 @@ h6:hover .anchor-link {
 </script>
                 </article>
             </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://RobLW.GitHub.io/DQIO-profitable-apps.html" rel="bookmark"
+                           title="Permalink to Profitable App Profile for Apple App Store and Google Play">Profitable App Profile for Apple App Store and Google Play</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-05-29T10:00:00+01:00">
+                Published: Wed 29 May 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://RobLW.GitHub.io/author/rob-williams.html">Rob Williams</a>
+        </address>
+<p>In <a href="https://RobLW.GitHub.io/category/notebook.html">Notebook</a>.</p>
+<p>tags: <a href="https://RobLW.GitHub.io/tag/python.html">Python</a> <a href="https://RobLW.GitHub.io/tag/dataquest.html">DataQuest</a> <a href="https://RobLW.GitHub.io/tag/data-analytics.html">Data Analytics</a> <a href="https://RobLW.GitHub.io/tag/notebook.html">Notebook</a> </p>
+</footer><!-- /.post-info -->                <p>This is the first guided project worked through on Dataquest.io</p>
+                <a class="readmore" href="https://RobLW.GitHub.io/DQIO-profitable-apps.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
-                        <h2>blogroll</h2>
+                        <h2>links</h2>
                         <ul>
                             <li><a href="http://getpelican.com/">Pelican</a></li>
                             <li><a href="http://python.org/">Python.org</a></li>
