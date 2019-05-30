@@ -1231,14 +1231,31 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hacker-News---Ask-vs-Show">Hacker News - Ask vs Show<a class="anchor-link" href="#Hacker-News---Ask-vs-Show">&#182;</a></h1><p>This notebook runs through the HN public data and provides analyse on whether ASK HN or SHOW HK posts receive more responses.</p>
+<h1 id="Hacker-News---Ask-vs-Show">Hacker News - Ask vs Show<a class="anchor-link" href="#Hacker-News---Ask-vs-Show">&#182;</a></h1><p>Hacker news is a website where users can make posts (write/share stories) and the content is commented on and voted by readers. The dataset allows us to be able to analyse those votes and comments on the website. In focus are posts which are classified as "Ask Hacker News" (Ask HN) and "Show Hacker News" (Show HN).</p>
+<p>Using these two types of posts we are specifically looking to answer the questions of :</p>
+<ul>
+<li>Do Ask HN or Show HN receive more comments on average?</li>
+<li>Do posts created at a certain time receive more comments on average?</li>
+</ul>
+<p>This is a 20,000 subset of the ~300,000 dataset.</p>
+<p>This project is a guided project from Dataquest.io - It's purpose isn't to be efficient and using pandas to handle the data, but to show the underlying workings on how opening and reading a file works as well as how we might loop through data to process and analyse it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-Introduction-steps:">1. Introduction steps:<a class="anchor-link" href="#1.-Introduction-steps:">&#182;</a></h3><p>First we'll import the hacker_news.csv file.
+I'll put a copy of the header attributes (first row, column headers) into a variable. This is for my own reference while working on code further down.
+I'll then remove the header attributes from the dataset so I can work on it without having to filter out the headers all the time.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">csv</span> <span class="k">import</span> <span class="n">reader</span>
@@ -1252,7 +1269,7 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;hacker_news.csv&#39;</span><span class="p">)</span>
@@ -1267,7 +1284,7 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="n">hn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1300,10 +1317,14 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hn</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># hn is a list of lists (nested lists)</span>
+<span class="c1">#print(hn[:4])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Example data:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">headers</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hn</span><span class="p">[:</span><span class="mi">4</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1320,7 +1341,17 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[&#39;12224879&#39;, &#39;Interactive Dynamic Video&#39;, &#39;http://www.interactivedynamicvideo.com/&#39;, &#39;386&#39;, &#39;52&#39;, &#39;ne0phyte&#39;, &#39;8/4/2016 11:52&#39;], [&#39;10975351&#39;, &#39;How to Use Open Source and Shut the Fuck Up at the Same Time&#39;, &#39;http://hueniverse.com/2016/01/26/how-to-use-open-source-and-shut-the-fuck-up-at-the-same-time/&#39;, &#39;39&#39;, &#39;10&#39;, &#39;josep2&#39;, &#39;1/26/2016 19:30&#39;], [&#39;11964716&#39;, &#34;Florida DJs May Face Felony for April Fools&#39; Water Joke&#34;, &#39;http://www.thewire.com/entertainment/2013/04/florida-djs-april-fools-water-joke/63798/&#39;, &#39;2&#39;, &#39;1&#39;, &#39;vezycash&#39;, &#39;6/23/2016 22:20&#39;], [&#39;11919867&#39;, &#39;Technology ventures: From Idea to Enterprise&#39;, &#39;https://www.amazon.com/Technology-Ventures-Enterprise-Thomas-Byers/dp/0073523429&#39;, &#39;3&#39;, &#39;1&#39;, &#39;hswarna&#39;, &#39;6/17/2016 0:01&#39;]]
+<pre>Example data:
+ [&#39;id&#39;, &#39;title&#39;, &#39;url&#39;, &#39;num_points&#39;, &#39;num_comments&#39;, &#39;author&#39;, &#39;created_at&#39;] 
+
+1 :  [&#39;12224879&#39;, &#39;Interactive Dynamic Video&#39;, &#39;http://www.interactivedynamicvideo.com/&#39;, &#39;386&#39;, &#39;52&#39;, &#39;ne0phyte&#39;, &#39;8/4/2016 11:52&#39;] 
+
+2 :  [&#39;10975351&#39;, &#39;How to Use Open Source and Shut the Fuck Up at the Same Time&#39;, &#39;http://hueniverse.com/2016/01/26/how-to-use-open-source-and-shut-the-fuck-up-at-the-same-time/&#39;, &#39;39&#39;, &#39;10&#39;, &#39;josep2&#39;, &#39;1/26/2016 19:30&#39;] 
+
+3 :  [&#39;11964716&#39;, &#34;Florida DJs May Face Felony for April Fools&#39; Water Joke&#34;, &#39;http://www.thewire.com/entertainment/2013/04/florida-djs-april-fools-water-joke/63798/&#39;, &#39;2&#39;, &#39;1&#39;, &#39;vezycash&#39;, &#39;6/23/2016 22:20&#39;] 
+
+4 :  [&#39;11919867&#39;, &#39;Technology ventures: From Idea to Enterprise&#39;, &#39;https://www.amazon.com/Technology-Ventures-Enterprise-Thomas-Byers/dp/0073523429&#39;, &#39;3&#39;, &#39;1&#39;, &#39;hswarna&#39;, &#39;6/17/2016 0:01&#39;] 
+
 </pre>
 </div>
 </div>
@@ -1329,9 +1360,18 @@ h6:hover .anchor-link {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Identify-posts/data-to-work-on">Identify posts/data to work on<a class="anchor-link" href="#Identify-posts/data-to-work-on">&#182;</a></h3><p>I will pull out the "Ask HN" posts, "Show HN" posts and all other posts which can be placed into 3 separate containers (lists).
+Where in a dataframe, this could be done with indexing, the purpose of this guided project is to understand the fundamentals of python for data and so we'll use a for loop</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ask_posts</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1346,7 +1386,7 @@ h6:hover .anchor-link {
     <span class="k">else</span><span class="p">:</span>
         <span class="n">other_posts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
         
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ask_posts: &#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ask_posts</span><span class="p">),</span> <span class="s1">&#39; show_posts: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">show_posts</span><span class="p">),</span> <span class="s1">&#39; other_posts: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_posts</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of posts in each container:&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">ask_posts: &#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">ask_posts</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">show_posts: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">show_posts</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">other_posts: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_posts</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -1363,7 +1403,10 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ask_posts:  1744  show_posts:  1162  other_posts:  17194
+<pre>Number of posts in each container: 
+ask_posts:  1744 
+show_posts:  1162 
+other_posts:  17194
 </pre>
 </div>
 </div>
@@ -1372,9 +1415,18 @@ h6:hover .anchor-link {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SideNote">SideNote<a class="anchor-link" href="#SideNote">&#182;</a></h2><p>The majority of posts on Hacker News do not fall into the two categories that we are looking to analyse. Each post will also have a number of comments and a number of votes.</p>
+<p>Below we are going to work out the mean average of comments for Show HN and Ask HN posts</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_ask_comments</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1383,14 +1435,14 @@ h6:hover .anchor-link {
     <span class="n">total_ask_comments</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
     
 <span class="n">avg_ask_comments</span> <span class="o">=</span> <span class="n">total_ask_comments</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ask_posts</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">avg_ask_comments</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average number rof comments per Ask HN post: &#39;</span><span class="p">,</span> <span class="n">avg_ask_comments</span><span class="p">)</span>
 
 <span class="n">total_show_comments</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">show_posts</span><span class="p">:</span>
     <span class="n">total_show_comments</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
     
 <span class="n">avg_show_comments</span> <span class="o">=</span> <span class="n">total_show_comments</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">show_posts</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">avg_show_comments</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average number of comments on Show HN post: &#39;</span><span class="p">,</span><span class="n">avg_show_comments</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1407,8 +1459,8 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>14.038417431192661
-10.31669535283993
+<pre>Average number rof comments per Ask HN post:  14.038417431192661
+Average number of comments on Show HN post:  10.31669535283993
 </pre>
 </div>
 </div>
@@ -1420,8 +1472,7 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Analysis-Thought">Analysis Thought<a class="anchor-link" href="#Analysis-Thought">&#182;</a></h3><p>It would appear that Ask HN receives more interactions with the viewer base then Show HN does.
-This is ontop of the fact there are a larger number of Ask HN posts compared to Show HN posts.</p>
+<h2 id="Analysis-Thought">Analysis Thought<a class="anchor-link" href="#Analysis-Thought">&#182;</a></h2><p>Ask HN posts has a larger number of posts compared to Show HN in our data-subset, it also has a higher number of average comments per post as well. This leans towards the understanding that Ask HN post gain greater visability to the potential HN audience. If a user was looking to make an impactful post on HN it could be the best choice to present a Ask HN content.</p>
 
 </div>
 </div>
@@ -1429,71 +1480,78 @@ This is ontop of the fact there are a larger number of Ask HN posts compared to 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Which-hour-was-content-created-for-the-highest-comment-posts?">Which hour was content created for the highest comment posts?<a class="anchor-link" href="#Which-hour-was-content-created-for-the-highest-comment-posts?">&#182;</a></h1><p>This next section produces a frequency table of the hour content was created on Ask HN posts. This shows us the best time to post your content to rapidly get maximum reponses as fast as possible and move up in the "hot lists" etc.</p>
+<h1 id="Analysis-of-time-content-was-created">Analysis of time content was created<a class="anchor-link" href="#Analysis-of-time-content-was-created">&#182;</a></h1><p>This next section produces a frequency table of the hour that content was created on Ask HN posts. This shows us the best time to post your content to rapidly get maximum exposure/reponses move up in the "hot lists".</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">ask_posts</span><span class="p">:</span>
-    <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">post</span><span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+    <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">post</span><span class="p">[</span><span class="mi">6</span><span class="p">]])</span> <span class="c1"># num_comments + created_at columns</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Example of data we worked:</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">headers</span><span class="p">[</span><span class="mi">4</span><span class="p">::</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result_list</span><span class="p">[:</span><span class="mi">4</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Example of data we worked:
+
+ [&#39;num_comments&#39;, &#39;created_at&#39;]
+[6, &#39;8/16/2016 9:55&#39;]
+[29, &#39;11/22/2015 13:43&#39;]
+[1, &#39;5/2/2016 10:14&#39;]
+[3, &#39;8/2/2016 14:20&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counts_by_hour</span><span class="p">,</span> <span class="n">comments_by_hour</span> <span class="o">=</span> <span class="p">{},{}</span>
-<span class="n">dtformat</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %H:%M&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">posts_by_hour</span><span class="p">,</span> <span class="n">comments_by_hour</span> <span class="o">=</span> <span class="p">{},{}</span>
+<span class="n">dtformat</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %H:%M&#39;</span> <span class="c1"># Month, Day, Year, Hour, Minutes</span>
 
 <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">result_list</span><span class="p">:</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtformat</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtformat</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span> <span class="c1">#We are only interested in hours</span>
     
-    <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">counts_by_hour</span><span class="p">:</span>
-        <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">posts_by_hour</span><span class="p">:</span>
+        <span class="n">posts_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">posts_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         
     <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">comments_by_hour</span><span class="p">:</span>
         <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we are looking for the average number of comments per post, at each hour of the day</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_by_hour</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">counts_by_hour</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="s1">&#39; / &#39;</span><span class="p">,</span> <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="s1">&#39; = &#39;</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">])</span>
-    <span class="n">avg_by_hour</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">h</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]])</span>    
+<span class="nb">print</span><span class="p">(</span><span class="n">posts_by_hour</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comments_by_hour</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1510,30 +1568,76 @@ This is ontop of the fact there are a larger number of Ask HN posts compared to 
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Hour 0 :  447  /  55  =  8.127272727272727
-Hour 1 :  683  /  60  =  11.383333333333333
-Hour 2 :  1381  /  58  =  23.810344827586206
-Hour 3 :  421  /  54  =  7.796296296296297
-Hour 4 :  337  /  47  =  7.170212765957447
-Hour 5 :  464  /  46  =  10.08695652173913
-Hour 6 :  397  /  44  =  9.022727272727273
-Hour 7 :  267  /  34  =  7.852941176470588
-Hour 8 :  492  /  48  =  10.25
-Hour 9 :  251  /  45  =  5.5777777777777775
-Hour 10 :  793  /  59  =  13.440677966101696
-Hour 11 :  641  /  58  =  11.051724137931034
-Hour 12 :  687  /  73  =  9.41095890410959
-Hour 13 :  1253  /  85  =  14.741176470588234
-Hour 14 :  1416  /  107  =  13.233644859813085
-Hour 15 :  4477  /  116  =  38.5948275862069
-Hour 16 :  1814  /  108  =  16.796296296296298
-Hour 17 :  1146  /  100  =  11.46
-Hour 18 :  1439  /  109  =  13.20183486238532
-Hour 19 :  1188  /  110  =  10.8
-Hour 20 :  1722  /  80  =  21.525
-Hour 21 :  1745  /  109  =  16.009174311926607
-Hour 22 :  479  /  71  =  6.746478873239437
-Hour 23 :  543  /  68  =  7.985294117647059
+<pre>{9: 45, 13: 85, 10: 59, 14: 107, 16: 108, 23: 68, 12: 73, 17: 100, 15: 116, 21: 109, 20: 80, 2: 58, 18: 109, 3: 54, 5: 46, 19: 110, 1: 60, 22: 71, 8: 48, 4: 47, 0: 55, 6: 44, 7: 34, 11: 58}
+{9: 251, 13: 1253, 10: 793, 14: 1416, 16: 1814, 23: 543, 12: 687, 17: 1146, 15: 4477, 21: 1745, 20: 1722, 2: 1381, 18: 1439, 3: 421, 5: 464, 19: 1188, 1: 683, 22: 479, 8: 492, 4: 337, 0: 447, 6: 397, 7: 267, 11: 641}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Calculating-the-average-number-of-comments-per-post,-by-the-hour-they-were-posted-in">Calculating the average number of comments per post, by the hour they were posted in<a class="anchor-link" href="#Calculating-the-average-number-of-comments-per-post,-by-the-hour-they-were-posted-in">&#182;</a></h1><p>This first field workds on Ask HN posts</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_by_hour</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(Comments / posts per hour)&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">posts_by_hour</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hour </span><span class="si">{:&gt;2}</span><span class="s1"> : </span><span class="si">{:&gt;4}</span><span class="s1"> / </span><span class="si">{:&gt;4}</span><span class="s1"> = </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="p">,</span> <span class="n">posts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">],</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">posts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]))</span>
+    <span class="n">avg_by_hour</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">h</span><span class="p">,</span> <span class="n">comments_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">/</span> <span class="n">posts_by_hour</span><span class="p">[</span><span class="n">h</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(Comments / posts per hour)
+Hour  9 :  251 /   45 = 5.58
+Hour 13 : 1253 /   85 = 14.74
+Hour 10 :  793 /   59 = 13.44
+Hour 14 : 1416 /  107 = 13.23
+Hour 16 : 1814 /  108 = 16.80
+Hour 23 :  543 /   68 = 7.99
+Hour 12 :  687 /   73 = 9.41
+Hour 17 : 1146 /  100 = 11.46
+Hour 15 : 4477 /  116 = 38.59
+Hour 21 : 1745 /  109 = 16.01
+Hour 20 : 1722 /   80 = 21.52
+Hour  2 : 1381 /   58 = 23.81
+Hour 18 : 1439 /  109 = 13.20
+Hour  3 :  421 /   54 = 7.80
+Hour  5 :  464 /   46 = 10.09
+Hour 19 : 1188 /  110 = 10.80
+Hour  1 :  683 /   60 = 11.38
+Hour 22 :  479 /   71 = 6.75
+Hour  8 :  492 /   48 = 10.25
+Hour  4 :  337 /   47 = 7.17
+Hour  0 :  447 /   55 = 8.13
+Hour  6 :  397 /   44 = 9.02
+Hour  7 :  267 /   34 = 7.85
+Hour 11 :  641 /   58 = 11.05
 </pre>
 </div>
 </div>
@@ -1544,7 +1648,7 @@ Hour 23 :  543  /  68  =  7.985294117647059
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">swap_avg_by_hour</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1560,7 +1664,7 @@ Hour 23 :  543  /  68  =  7.985294117647059
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sorted_swap</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">swap_avg_by_hour</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -1573,7 +1677,7 @@ Hour 23 :  543  /  68  =  7.985294117647059
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 5 Hours for Ask Posts Comments&quot;</span><span class="p">)</span>
@@ -1609,6 +1713,20 @@ Hour 23 :  543  /  68  =  7.985294117647059
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h1><p>With the data analysed we can see that 15:00-16:00 would appear to be the key time to make a Ask HN post in order to get maximum exposure. However there are other things to consider in the "things of note" below.</p>
+<h3 id="Things-of-note:">Things of note:<a class="anchor-link" href="#Things-of-note:">&#182;</a></h3><ol>
+<li>Posts with zero comments were excluded.</li>
+<li>The timezone was in Eastern Time in the US</li>
+<li>The data source <a href="https://www.kaggle.com/hacker-news/hacker-news-posts/home">https://www.kaggle.com/hacker-news/hacker-news-posts/home</a> </li>
+<li>The analyse was a guided project on DataQuest.io course.</li>
+</ol>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -1664,8 +1782,12 @@ Hour 23 :  543  /  68  =  7.985294117647059
 <!-- end article -->
                 <footer>
                     <div class="icons">
+                        <a href="Https://GitHub.com/RobLW" target="_blank"><div class="icon-github icon"></div></a>
                     </div>
                     <p>© <script>document.write(moment().format('YYYY'));</script> Rob Williams</p>
+ 
+                    <p><i>"Brutal"</i> Pelican Theme</p>
+                    <p>Designed and built by <a href="http://twitter.com/mcman_s">@mcman_s</a> in Denver</p>
                 </footer>
         </div>
 </body>
