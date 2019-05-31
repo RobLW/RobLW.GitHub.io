@@ -58,6 +58,7 @@
             <nav id="menu">
                 <ul>
                             <li class="active"><a href="https://RobLW.GitHub.io/category/notebook.html">Notebook</a></li>
+                            <li><a href="https://RobLW.GitHub.io/category/projects.html">Projects</a></li>
                 </ul>
             </nav>
         </header>
@@ -1231,7 +1232,13 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Revenue-via-in-app-advertisement">Revenue via in-app advertisement<a class="anchor-link" href="#Revenue-via-in-app-advertisement">&#182;</a></h1><p>This notebook demonstrates the profitability of in-app advertisement for our free-to-download applications on Google Play and the App Store.</p>
+<h1 id="Revenue-for-apps-in-Apple-App-Store-and-Google-Play">Revenue for apps in Apple App Store and Google Play<a class="anchor-link" href="#Revenue-for-apps-in-Apple-App-Store-and-Google-Play">&#182;</a></h1><p>This notebook demonstrates the profitability of in-app advertisement for free-to-download applications on Google Play and the App Store. The data source is taken from Kaggle.
+This is the first guided project presented on Dataquest.io, and so the aim here is not to produce something that is efficient, but to build a foundational knowledge on using Python for data analytics. This means rather than using pandas it'll be all driven by lists and loops where necessary.</p>
+<p>This notebook is working on a sample of the data that is made available via Kaggle, as it is for a learning experience and faster performance is key to a fluid learning process.</p>
+<ul>
+<li><a href="https://www.kaggle.com/lava18/google-play-store-apps/home">https://www.kaggle.com/lava18/google-play-store-apps/home</a></li>
+<li><a href="https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps/home">https://www.kaggle.com/ramamet4/app-store-apple-data-set-10k-apps/home</a></li>
+</ul>
 
 </div>
 </div>
@@ -1242,14 +1249,14 @@ h6:hover .anchor-link {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">explore_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">rows_and_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Function supports a list dataset, with a starting and ending index on which columns to work with.&#39;&#39;&#39;</span>
     <span class="n">dataset_slice</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dataset_slice</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># adds a new (empty) line after each row</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
         
-        <span class="k">if</span> <span class="n">rows_and_columns</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of rows:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of columns;&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">rows_and_columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of rows:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of columns;&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
             
 </pre></div>
 
@@ -1276,8 +1283,8 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">afile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;AppleStore.csv&#39;</span><span class="p">)</span>
-<span class="n">gfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;googleplaystore.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">afile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;AppleStore.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span>
+<span class="n">gfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;googleplaystore.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span>
 <span class="n">aread</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">afile</span><span class="p">)</span>
 <span class="n">gread</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">gfile</span><span class="p">)</span>
 <span class="n">appleDS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aread</span><span class="p">)</span>
@@ -1355,8 +1362,7 @@ h6:hover .anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;id&#39;, &#39;track_name&#39;, &#39;size_bytes&#39;, &#39;currency&#39;, &#39;price&#39;, &#39;rating_count_tot&#39;, &#39;rating_count_ver&#39;, &#39;user_rating&#39;, &#39;user_rating_ver&#39;, &#39;ver&#39;, &#39;cont_rating&#39;, &#39;prime_genre&#39;, &#39;sup_devices.num&#39;, &#39;ipadSc_urls.num&#39;, &#39;lang.num&#39;, &#39;vpp_lic&#39;]
-
+<pre>[&#39;id&#39;, &#39;track_name&#39;, &#39;size_bytes&#39;, &#39;currency&#39;, &#39;price&#39;, &#39;rating_count_tot&#39;, &#39;rating_count_ver&#39;, &#39;user_rating&#39;, &#39;user_rating_ver&#39;, &#39;ver&#39;, &#39;cont_rating&#39;, &#39;prime_genre&#39;, &#39;sup_devices.num&#39;, &#39;ipadSc_urls.num&#39;, &#39;lang.num&#39;, &#39;vpp_lic&#39;] 
 
 Number of rows: 7198
 Number of columns; 16
@@ -1390,8 +1396,7 @@ Number of columns; 16
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;App&#39;, &#39;Category&#39;, &#39;Rating&#39;, &#39;Reviews&#39;, &#39;Size&#39;, &#39;Installs&#39;, &#39;Type&#39;, &#39;Price&#39;, &#39;Content Rating&#39;, &#39;Genres&#39;, &#39;Last Updated&#39;, &#39;Current Ver&#39;, &#39;Android Ver&#39;]
-
+<pre>[&#39;App&#39;, &#39;Category&#39;, &#39;Rating&#39;, &#39;Reviews&#39;, &#39;Size&#39;, &#39;Installs&#39;, &#39;Type&#39;, &#39;Price&#39;, &#39;Content Rating&#39;, &#39;Genres&#39;, &#39;Last Updated&#39;, &#39;Current Ver&#39;, &#39;Android Ver&#39;] 
 
 Number of rows: 10842
 Number of columns; 13
@@ -1425,11 +1430,9 @@ Number of columns; 13
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;Xposed Wi-Fi-Pwd&#39;, &#39;PERSONALIZATION&#39;, &#39;3.5&#39;, &#39;1042&#39;, &#39;404k&#39;, &#39;100,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Personalization&#39;, &#39;August 5, 2014&#39;, &#39;3.0.0&#39;, &#39;4.0.3 and up&#39;]
+<pre>[&#39;Xposed Wi-Fi-Pwd&#39;, &#39;PERSONALIZATION&#39;, &#39;3.5&#39;, &#39;1042&#39;, &#39;404k&#39;, &#39;100,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Personalization&#39;, &#39;August 5, 2014&#39;, &#39;3.0.0&#39;, &#39;4.0.3 and up&#39;] 
 
-
-[&#39;Life Made WI-Fi Touchscreen Photo Frame&#39;, &#39;1.9&#39;, &#39;19&#39;, &#39;3.0M&#39;, &#39;1,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;&#39;, &#39;February 11, 2018&#39;, &#39;1.0.19&#39;, &#39;4.0 and up&#39;]
-
+[&#39;Life Made WI-Fi Touchscreen Photo Frame&#39;, &#39;1.9&#39;, &#39;19&#39;, &#39;3.0M&#39;, &#39;1,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;&#39;, &#39;February 11, 2018&#39;, &#39;1.0.19&#39;, &#39;4.0 and up&#39;] 
 
 </pre>
 </div>
@@ -1466,7 +1469,8 @@ Number of columns; 13
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This data was wrong. Lets remove it</span>
-<span class="c1"># del googleDS[10473]</span>
+<span class="k">del</span> <span class="n">googleDS</span><span class="p">[</span><span class="mi">10473</span><span class="p">]</span>
+<span class="c1">#googleDS[10473]</span>
 </pre></div>
 
     </div>
@@ -1524,25 +1528,45 @@ Number of columns; 13
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">duplicates</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">unique</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">android_duplicates</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">android_unique</span> <span class="o">=</span> <span class="p">{}</span>
 
 
 <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">googleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">app</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">reviews</span> <span class="o">=</span> <span class="n">app</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">unique</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span> <span class="c1">#new highest rating</span>
-                <span class="n">duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span> <span class="c1">#add to dictionary</span>
-            <span class="n">duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">android_unique</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">android_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span> <span class="c1"># new highest rating</span>
+            <span class="n">android_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">android_duplicates</span><span class="p">:</span>
+            <span class="n">android_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">android_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">android_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of duplicate rows discovered in Google Play&#39;</span><span class="p">,</span><span class="nb">sum</span><span class="p">(</span><span class="n">android_duplicates</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total number of duplicate rows discovered in Google Play 1181
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1553,24 +1577,43 @@ Number of columns; 13
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_duplicates</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">apple_unique</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">apple_unique</span> <span class="o">=</span> <span class="p">{}</span>
 
 
 <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">appleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">app</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">reviews</span> <span class="o">=</span> <span class="n">app</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">apple_unique</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">apple_duplicates</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">apple_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span> <span class="c1">#new highest rating</span>
-                <span class="n">apple_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span> <span class="c1">#add to dictionary</span>
+        <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">apple_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span> <span class="c1">#new highest rating</span>
             <span class="n">apple_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">apple_duplicates</span><span class="p">:</span>
+            <span class="n">apple_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">apple_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">apple_unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">apple_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">reviews</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of duplicate rows discovered in Apple Store:&#39;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">apple_duplicates</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total number of duplicate rows discovered in Apple Store: 2
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1580,10 +1623,10 @@ Number of columns; 13
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of google duplicate apps: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of google duplicate apps: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">android_duplicates</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exmaples of google duplicate apps: &#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exmaples of google duplicate apps: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">android_duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">10</span><span class="p">]:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
 </pre></div>
 
@@ -1605,6 +1648,7 @@ Number of columns; 13
 
 
 Exmaples of google duplicate apps: 
+
 10 Best Foods for You
 1800 Contacts - Lens Store
 2017 EMRA Antibiotic Guide
@@ -1669,14 +1713,14 @@ VR Roller Coaster
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">keys</span> <span class="o">=</span> <span class="n">duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">android_duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">googleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
     <span class="k">if</span> <span class="n">each</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
         <span class="n">cnt</span> <span class="o">+=</span><span class="mi">1</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of google rows duplicated&#39;</span><span class="p">,</span><span class="n">cnt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of google rows to be deleted&#39;</span><span class="p">,</span> <span class="n">cnt</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of googlerows to remain&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">googleDS</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">cnt</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">))</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#-1 for header</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of google rows to be deleted&#39;</span><span class="p">,</span> <span class="n">cnt</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">android_duplicates</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of google rows to remain&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">googleDS</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">cnt</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">android_duplicates</span><span class="p">))</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#-1 for header</span>
 </pre></div>
 
     </div>
@@ -1695,7 +1739,7 @@ VR Roller Coaster
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of google rows duplicated 1979
 Total number of google rows to be deleted 1181
-Total number of googlerows to remain 9660
+Total number of google rows to remain 9659
 </pre>
 </div>
 </div>
@@ -1712,7 +1756,7 @@ Total number of googlerows to remain 9660
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">keys</span> <span class="o">=</span> <span class="n">apple_duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">appleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-    <span class="k">if</span> <span class="n">each</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">each</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
         <span class="n">cnt</span> <span class="o">+=</span><span class="mi">1</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of apple rows duplicated&#39;</span><span class="p">,</span><span class="n">cnt</span><span class="p">)</span>
@@ -1734,9 +1778,9 @@ Total number of googlerows to remain 9660
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Total number of apple rows duplicated 0
-Total number of apple rows to be deleted -2
-Total number of apple rows to remain 7199
+<pre>Total number of apple rows duplicated 4
+Total number of apple rows to be deleted 2
+Total number of apple rows to remain 7195
 </pre>
 </div>
 </div>
@@ -1751,23 +1795,39 @@ Total number of apple rows to remain 7199
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_clean</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">already_added</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">google_already_added</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">android_unique</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">googleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">each</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">n_reviews</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">already_added</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">google_clean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
-        <span class="n">already_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">already_added</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">n_reviews</span> <span class="o">==</span> <span class="n">duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
-            <span class="n">google_clean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
-            <span class="n">already_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">googleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">app</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_reviews</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">app</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">keys</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">google_already_added</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n_reviews</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="n">android_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]):</span>
+            <span class="n">google_clean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+            <span class="n">google_already_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+ 
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">google_clean</span><span class="p">))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>9659
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1777,7 +1837,19 @@ Total number of apple rows to remain 7199
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">google_clean</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_clean</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">apple_already_added</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">appleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">app</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n_reviews</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">app</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">apple_unique</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">apple_already_added</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n_reviews</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="n">apple_unique</span><span class="p">[</span><span class="n">name</span><span class="p">]):</span>
+            <span class="n">apple_clean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+            <span class="n">apple_already_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">apple_clean</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -1790,43 +1862,15 @@ Total number of apple rows to remain 7199
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>8862</pre>
-</div>
-
-</div>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7195
+</pre>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_clean</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">apple_already_added</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">appleDS</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">each</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">n_reviews</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-    
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">apple_already_added</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">apple_duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">apple_clean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
-        <span class="n">apple_already_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">apple_already_added</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">apple_duplicates</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">n_reviews</span> <span class="o">==</span> <span class="n">apple_duplicates</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
-            <span class="n">apple_clean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
-            <span class="n">apple_already_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -1834,53 +1878,17 @@ Total number of apple rows to remain 7199
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Focus-on-english-market">Focus on english market<a class="anchor-link" href="#Focus-on-english-market">&#182;</a></h3><p>We are not interest in apps that are focused on non-english speaking markets so we will remove them from the app list.</p>
+<h2 id="Explore">Explore<a class="anchor-link" href="#Explore">&#182;</a></h2><p>Lets put our clean data through our function to see a sample of the data and get a print of the number of rows and columns in the dataset</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">engApp</span><span class="p">(</span><span class="n">appname</span><span class="p">):</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">appname</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">127</span><span class="p">:</span>
-            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">return</span> <span class="kc">True</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_clean2</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">google_clean</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">engApp</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">google_clean2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">google_clean2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">explore_data</span><span class="p">(</span><span class="n">google_clean</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1893,13 +1901,112 @@ Total number of apple rows to remain 7199
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;Name Art Photo Editor - Focus n Filters&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.4&#39;, &#39;8788&#39;, &#39;12M&#39;, &#39;1,000,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Art &amp; Design&#39;, &#39;July 31, 2018&#39;, &#39;1.0.15&#39;, &#39;4.0 and up&#39;] 
+
+[&#39;Tattoo Name On My Photo Editor&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.2&#39;, &#39;44829&#39;, &#39;20M&#39;, &#39;10,000,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Teen&#39;, &#39;Art &amp; Design&#39;, &#39;April 2, 2018&#39;, &#39;3.8&#39;, &#39;4.1 and up&#39;] 
+
+[&#39;Mandala Coloring Book&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.6&#39;, &#39;4326&#39;, &#39;21M&#39;, &#39;100,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Art &amp; Design&#39;, &#39;June 26, 2018&#39;, &#39;1.0.4&#39;, &#39;4.4 and up&#39;] 
+
+Number of rows: 9659
+Number of columns; 13
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">explore_data</span><span class="p">(</span><span class="n">apple_clean</span><span class="p">,</span><span class="mi">222</span><span class="p">,</span><span class="mi">224</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;429610587&#39;, &#39;iFunny :)&#39;, &#39;66599936&#39;, &#39;USD&#39;, &#39;0.0&#39;, &#39;98344&#39;, &#39;877&#39;, &#39;3.5&#39;, &#39;4.5&#39;, &#39;4.6.8&#39;, &#39;17+&#39;, &#39;Entertainment&#39;, &#39;37&#39;, &#39;2&#39;, &#39;2&#39;, &#39;1&#39;] 
+
+[&#39;640364616&#39;, &#39;Terraria&#39;, &#39;126036992&#39;, &#39;USD&#39;, &#39;4.99&#39;, &#39;98036&#39;, &#39;11022&#39;, &#39;4.5&#39;, &#39;4.5&#39;, &#39;1.2.12785&#39;, &#39;9+&#39;, &#39;Games&#39;, &#39;37&#39;, &#39;5&#39;, &#39;5&#39;, &#39;1&#39;] 
+
+Number of rows: 7195
+Number of columns; 16
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Focus-on-english-market">Focus on english market<a class="anchor-link" href="#Focus-on-english-market">&#182;</a></h2><p>We are not interest in apps that are focused on non-english speaking markets so we will remove them from the app list. We will target them based on the characters in their names. If they have characters which are not in the english alphabet then we'll remove them. This clearly doesn't remove apps that still use the same letters but for languages such as french for example, but it does improve our data without involving some kind of language detection process.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Example of non-english language apps&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">google_clean</span><span class="p">[</span><span class="mi">4412</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">google_clean</span><span class="p">[</span><span class="mi">7940</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">google_clean</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Example of non-english language apps
+ä¸­å½èª AQãªã¹ãã³ã°
+ÙØ¹Ø¨Ø© ØªÙØ¯Ø± ØªØ±Ø¨Ø­ DZ
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>8817</pre>
+<pre>9659</pre>
 </div>
 
 </div>
@@ -1910,12 +2017,88 @@ Total number of apple rows to remain 7199
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">engApp</span><span class="p">(</span><span class="n">appname</span><span class="p">):</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">appname</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">127</span><span class="p">:</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_english</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">google_clean</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">engApp</span><span class="p">(</span><span class="n">app</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">google_english</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">explore_data</span><span class="p">(</span><span class="n">google_english</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;Name Art Photo Editor - Focus n Filters&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.4&#39;, &#39;8788&#39;, &#39;12M&#39;, &#39;1,000,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Art &amp; Design&#39;, &#39;July 31, 2018&#39;, &#39;1.0.15&#39;, &#39;4.0 and up&#39;] 
+
+[&#39;Tattoo Name On My Photo Editor&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.2&#39;, &#39;44829&#39;, &#39;20M&#39;, &#39;10,000,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Teen&#39;, &#39;Art &amp; Design&#39;, &#39;April 2, 2018&#39;, &#39;3.8&#39;, &#39;4.1 and up&#39;] 
+
+[&#39;Mandala Coloring Book&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.6&#39;, &#39;4326&#39;, &#39;21M&#39;, &#39;100,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Art &amp; Design&#39;, &#39;June 26, 2018&#39;, &#39;1.0.4&#39;, &#39;4.4 and up&#39;] 
+
+Number of rows: 9500
+Number of columns; 13
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_clean2</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">appleDS</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">engApp</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">engApp</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">apple_clean2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 </pre></div>
 
@@ -1926,10 +2109,10 @@ Total number of apple rows to remain 7199
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">apple_clean2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">explore_data</span><span class="p">(</span><span class="n">apple_clean2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1942,15 +2125,16 @@ Total number of apple rows to remain 7199
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[23]:</div>
+    <div class="prompt"></div>
 
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;284882215&#39;, &#39;Facebook&#39;, &#39;389879808&#39;, &#39;USD&#39;, &#39;0.0&#39;, &#39;2974676&#39;, &#39;212&#39;, &#39;3.5&#39;, &#39;3.5&#39;, &#39;95.0&#39;, &#39;4+&#39;, &#39;Social Networking&#39;, &#39;37&#39;, &#39;1&#39;, &#39;29&#39;, &#39;1&#39;] 
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>7198</pre>
+Number of rows: 6101
+Number of columns; 16
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -1960,14 +2144,14 @@ Total number of apple rows to remain 7199
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Remove-paid-for-apps.">Remove paid for apps.<a class="anchor-link" href="#Remove-paid-for-apps.">&#182;</a></h2><p>We are only interested in free apps, as this is what our market competition is.</p>
+<h2 id="Remove-paid-for-apps.">Remove paid for apps.<a class="anchor-link" href="#Remove-paid-for-apps.">&#182;</a></h2><p>We are only interested in free apps, so we'll look to remove the paid for apps from our dataset. With free Apps, if they are looking for a source of revenue, this will normally be gained via in-app advertisement.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_final</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1975,7 +2159,7 @@ Total number of apple rows to remain 7199
     <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Free&#39;</span><span class="p">:</span>
         <span class="n">google_final</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-        <span class="n">apple_final</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">apple_final</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">apple_clean2</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0.0&#39;</span><span class="p">:</span>
         <span class="n">apple_final</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -1988,7 +2172,7 @@ Total number of apple rows to remain 7199
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">google_final</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">apple_final</span><span class="p">))</span>
@@ -2008,7 +2192,7 @@ Total number of apple rows to remain 7199
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>8105 4056
+<pre>8759 3169
 </pre>
 </div>
 </div>
@@ -2020,110 +2204,17 @@ Total number of apple rows to remain 7199
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Profiling-the-apps">Profiling the apps<a class="anchor-link" href="#Profiling-the-apps">&#182;</a></h2><p>We are looking for apps which are successful in both apple store and goole play. We'll also break this down by genre to allow us to analyse the markets in each genre.</p>
+<h2 id="Profiling-the-apps">Profiling the apps<a class="anchor-link" href="#Profiling-the-apps">&#182;</a></h2><p>We are looking for apps which are successful in both apple store and goole play. We'll also break this down by genre to allow us to analyse the markets in each genre. The aim is to identify which genre we can look at creating a new free app for. Keeping in mind that revenue from in-app advertisement will increase as the number of users of hte app increases.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_final</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[26]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[&#39;Photo Editor &amp; Candy Camera &amp; Grid &amp; ScrapBook&#39;,
- &#39;ART_AND_DESIGN&#39;,
- &#39;4.1&#39;,
- &#39;159&#39;,
- &#39;19M&#39;,
- &#39;10,000+&#39;,
- &#39;Free&#39;,
- &#39;0&#39;,
- &#39;Everyone&#39;,
- &#39;Art &amp; Design&#39;,
- &#39;January 7, 2018&#39;,
- &#39;1.0.0&#39;,
- &#39;4.0.3 and up&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_final</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[27]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[&#39;284882215&#39;,
- &#39;Facebook&#39;,
- &#39;389879808&#39;,
- &#39;USD&#39;,
- &#39;0.0&#39;,
- &#39;2974676&#39;,
- &#39;212&#39;,
- &#39;3.5&#39;,
- &#39;3.5&#39;,
- &#39;95.0&#39;,
- &#39;4+&#39;,
- &#39;Social Networking&#39;,
- &#39;37&#39;,
- &#39;1&#39;,
- &#39;29&#39;,
- &#39;1&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Function to allow user to pass a list of lists to dataset, and column number </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Function to allow user to pass a list of lists as dataset, and column number </span>
 <span class="c1"># to the index value. function loops through lists and pulls out the values</span>
 <span class="c1"># based on the index, to put into a new local dictionary and returns it.</span>
 
@@ -2150,172 +2241,14 @@ Total number of apple rows to remain 7199
         <span class="n">freq</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">v</span><span class="o">/</span><span class="n">total</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">freq</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#apple_freq = freq_table_percentage(apple_final,11)</span>
-<span class="n">apple_freq</span> <span class="o">=</span> <span class="n">freq_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_freq</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[30]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;Book&#39;: 66,
- &#39;Business&#39;: 20,
- &#39;Catalogs&#39;: 9,
- &#39;Education&#39;: 132,
- &#39;Entertainment&#39;: 334,
- &#39;Finance&#39;: 84,
- &#39;Food &amp; Drink&#39;: 43,
- &#39;Games&#39;: 2257,
- &#39;Health &amp; Fitness&#39;: 76,
- &#39;Lifestyle&#39;: 94,
- &#39;Medical&#39;: 8,
- &#39;Music&#39;: 67,
- &#39;Navigation&#39;: 20,
- &#39;News&#39;: 58,
- &#39;Photo &amp; Video&#39;: 167,
- &#39;Productivity&#39;: 62,
- &#39;Reference&#39;: 20,
- &#39;Shopping&#39;: 121,
- &#39;Social Networking&#39;: 143,
- &#39;Sports&#39;: 79,
- &#39;Travel&#39;: 56,
- &#39;Utilities&#39;: 109,
- &#39;Weather&#39;: 31}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_freq</span> <span class="o">=</span> <span class="n">freq_table_percentage</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_freq</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[32]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;ART_AND_DESIGN&#39;: 0.69,
- &#39;AUTO_AND_VEHICLES&#39;: 1.01,
- &#39;BEAUTY&#39;: 0.65,
- &#39;BOOKS_AND_REFERENCE&#39;: 2.23,
- &#39;BUSINESS&#39;: 4.63,
- &#39;COMICS&#39;: 0.63,
- &#39;COMMUNICATION&#39;: 3.01,
- &#39;DATING&#39;: 1.38,
- &#39;EDUCATION&#39;: 1.0,
- &#39;ENTERTAINMENT&#39;: 0.7,
- &#39;EVENTS&#39;: 0.78,
- &#39;FAMILY&#39;: 19.7,
- &#39;FINANCE&#39;: 3.84,
- &#39;FOOD_AND_DRINK&#39;: 1.18,
- &#39;GAME&#39;: 9.48,
- &#39;HEALTH_AND_FITNESS&#39;: 2.86,
- &#39;HOUSE_AND_HOME&#39;: 0.75,
- &#39;LIBRARIES_AND_DEMO&#39;: 1.01,
- &#39;LIFESTYLE&#39;: 4.12,
- &#39;MAPS_AND_NAVIGATION&#39;: 1.46,
- &#39;MEDICAL&#39;: 3.41,
- &#39;NEWS_AND_MAGAZINES&#39;: 2.81,
- &#39;PARENTING&#39;: 0.72,
- &#39;PERSONALIZATION&#39;: 3.49,
- &#39;PHOTOGRAPHY&#39;: 2.79,
- &#39;PRODUCTIVITY&#39;: 3.85,
- &#39;SHOPPING&#39;: 2.01,
- &#39;SOCIAL&#39;: 2.43,
- &#39;SPORTS&#39;: 3.38,
- &#39;TOOLS&#39;: 9.07,
- &#39;TRAVEL_AND_LOCAL&#39;: 2.26,
- &#39;VIDEO_PLAYERS&#39;: 1.83,
- &#39;WEATHER&#39;: 0.84}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">display_table</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="n">freq_table</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">display_table</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">freq_table_percentage</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
     <span class="n">table_display</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
         <span class="n">key_val_as_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">key</span><span class="p">)</span>
         <span class="n">table_display</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key_val_as_tuple</span><span class="p">)</span>
-
+        
     <span class="n">table_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">table_display</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">table_sorted</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -2328,11 +2261,12 @@ Total number of apple rows to remain 7199
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">display_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">t</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#apple_freq = freq_table_percentage(apple_final,11)</span>
+<span class="n">apple_freq</span> <span class="o">=</span> <span class="n">freq_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">display_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2349,29 +2283,29 @@ Total number of apple rows to remain 7199
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Games : 2257
-Entertainment : 334
-Photo &amp; Video : 167
-Social Networking : 143
-Education : 132
-Shopping : 121
-Utilities : 109
-Lifestyle : 94
-Finance : 84
-Sports : 79
-Health &amp; Fitness : 76
-Music : 67
-Book : 66
-Productivity : 62
-News : 58
-Travel : 56
-Food &amp; Drink : 43
-Weather : 31
-Reference : 20
-Navigation : 20
-Business : 20
-Catalogs : 9
-Medical : 8
+<pre>Games : 58.54
+Entertainment : 7.83
+Photo &amp; Video : 5.05
+Education : 3.72
+Social Networking : 3.28
+Shopping : 2.52
+Utilities : 2.4
+Sports : 2.18
+Music : 2.05
+Health &amp; Fitness : 1.99
+Productivity : 1.7
+Lifestyle : 1.55
+News : 1.33
+Travel : 1.14
+Finance : 1.1
+Weather : 0.85
+Food &amp; Drink : 0.82
+Reference : 0.54
+Business : 0.54
+Book : 0.38
+Navigation : 0.19
+Medical : 0.19
+Catalogs : 0.13
 </pre>
 </div>
 </div>
@@ -2382,10 +2316,11 @@ Medical : 8
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_freq</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_freq</span> <span class="o">=</span> <span class="n">freq_table_percentage</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display_table</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2398,37 +2333,45 @@ Medical : 8
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[35]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;Book&#39;: 66,
- &#39;Business&#39;: 20,
- &#39;Catalogs&#39;: 9,
- &#39;Education&#39;: 132,
- &#39;Entertainment&#39;: 334,
- &#39;Finance&#39;: 84,
- &#39;Food &amp; Drink&#39;: 43,
- &#39;Games&#39;: 2257,
- &#39;Health &amp; Fitness&#39;: 76,
- &#39;Lifestyle&#39;: 94,
- &#39;Medical&#39;: 8,
- &#39;Music&#39;: 67,
- &#39;Navigation&#39;: 20,
- &#39;News&#39;: 58,
- &#39;Photo &amp; Video&#39;: 167,
- &#39;Productivity&#39;: 62,
- &#39;Reference&#39;: 20,
- &#39;Shopping&#39;: 121,
- &#39;Social Networking&#39;: 143,
- &#39;Sports&#39;: 79,
- &#39;Travel&#39;: 56,
- &#39;Utilities&#39;: 109,
- &#39;Weather&#39;: 31}</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>FAMILY : 18.93
+GAME : 9.66
+TOOLS : 8.48
+BUSINESS : 4.65
+PRODUCTIVITY : 3.94
+LIFESTYLE : 3.92
+FINANCE : 3.72
+MEDICAL : 3.55
+SPORTS : 3.33
+PERSONALIZATION : 3.29
+COMMUNICATION : 3.25
+HEALTH_AND_FITNESS : 3.09
+PHOTOGRAPHY : 2.98
+NEWS_AND_MAGAZINES : 2.81
+SOCIAL : 2.65
+TRAVEL_AND_LOCAL : 2.34
+SHOPPING : 2.25
+BOOKS_AND_REFERENCE : 2.15
+DATING : 1.86
+VIDEO_PLAYERS : 1.8
+MAPS_AND_NAVIGATION : 1.38
+FOOD_AND_DRINK : 1.23
+EDUCATION : 1.18
+ENTERTAINMENT : 0.96
+AUTO_AND_VEHICLES : 0.92
+LIBRARIES_AND_DEMO : 0.9
+WEATHER : 0.79
+HOUSE_AND_HOME : 0.79
+EVENTS : 0.72
+ART_AND_DESIGN : 0.65
+PARENTING : 0.64
+BEAUTY : 0.61
+COMICS : 0.58
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -2444,7 +2387,7 @@ Medical : 8
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
@@ -2464,29 +2407,29 @@ Medical : 8
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Games : 2257
-Entertainment : 334
-Photo &amp; Video : 167
-Social Networking : 143
-Education : 132
-Shopping : 121
-Utilities : 109
-Lifestyle : 94
-Finance : 84
-Sports : 79
-Health &amp; Fitness : 76
-Music : 67
-Book : 66
-Productivity : 62
-News : 58
-Travel : 56
-Food &amp; Drink : 43
-Weather : 31
-Reference : 20
-Navigation : 20
-Business : 20
-Catalogs : 9
-Medical : 8
+<pre>Games : 58.54
+Entertainment : 7.83
+Photo &amp; Video : 5.05
+Education : 3.72
+Social Networking : 3.28
+Shopping : 2.52
+Utilities : 2.4
+Sports : 2.18
+Music : 2.05
+Health &amp; Fitness : 1.99
+Productivity : 1.7
+Lifestyle : 1.55
+News : 1.33
+Travel : 1.14
+Finance : 1.1
+Weather : 0.85
+Food &amp; Drink : 0.82
+Reference : 0.54
+Business : 0.54
+Book : 0.38
+Navigation : 0.19
+Medical : 0.19
+Catalogs : 0.13
 </pre>
 </div>
 </div>
@@ -2497,7 +2440,7 @@ Medical : 8
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_table</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#11</span>
@@ -2517,39 +2460,39 @@ Medical : 8
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>FAMILY : 1597
-GAME : 768
-TOOLS : 735
-BUSINESS : 375
-LIFESTYLE : 334
-PRODUCTIVITY : 312
-FINANCE : 311
-PERSONALIZATION : 283
-MEDICAL : 276
-SPORTS : 274
-COMMUNICATION : 244
-HEALTH_AND_FITNESS : 232
-NEWS_AND_MAGAZINES : 228
-PHOTOGRAPHY : 226
-SOCIAL : 197
-TRAVEL_AND_LOCAL : 183
-BOOKS_AND_REFERENCE : 181
-SHOPPING : 163
-VIDEO_PLAYERS : 148
-MAPS_AND_NAVIGATION : 118
-DATING : 112
-FOOD_AND_DRINK : 96
-LIBRARIES_AND_DEMO : 82
-AUTO_AND_VEHICLES : 82
-EDUCATION : 81
-WEATHER : 68
-EVENTS : 63
-HOUSE_AND_HOME : 61
-PARENTING : 58
-ENTERTAINMENT : 57
-ART_AND_DESIGN : 56
-BEAUTY : 53
-COMICS : 51
+<pre>FAMILY : 18.93
+GAME : 9.66
+TOOLS : 8.48
+BUSINESS : 4.65
+PRODUCTIVITY : 3.94
+LIFESTYLE : 3.92
+FINANCE : 3.72
+MEDICAL : 3.55
+SPORTS : 3.33
+PERSONALIZATION : 3.29
+COMMUNICATION : 3.25
+HEALTH_AND_FITNESS : 3.09
+PHOTOGRAPHY : 2.98
+NEWS_AND_MAGAZINES : 2.81
+SOCIAL : 2.65
+TRAVEL_AND_LOCAL : 2.34
+SHOPPING : 2.25
+BOOKS_AND_REFERENCE : 2.15
+DATING : 1.86
+VIDEO_PLAYERS : 1.8
+MAPS_AND_NAVIGATION : 1.38
+FOOD_AND_DRINK : 1.23
+EDUCATION : 1.18
+ENTERTAINMENT : 0.96
+AUTO_AND_VEHICLES : 0.92
+LIBRARIES_AND_DEMO : 0.9
+WEATHER : 0.79
+HOUSE_AND_HOME : 0.79
+EVENTS : 0.72
+ART_AND_DESIGN : 0.65
+PARENTING : 0.64
+BEAUTY : 0.61
+COMICS : 0.58
 </pre>
 </div>
 </div>
@@ -2560,7 +2503,7 @@ COMICS : 51
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_table</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
@@ -2580,115 +2523,119 @@ COMICS : 51
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Tools : 734
-Entertainment : 500
-Education : 448
-Business : 375
-Lifestyle : 333
-Productivity : 312
-Finance : 311
-Personalization : 283
-Sports : 277
-Medical : 276
-Action : 246
-Communication : 244
-Health &amp; Fitness : 232
-News &amp; Magazines : 228
-Photography : 226
-Social : 197
-Travel &amp; Local : 182
-Books &amp; Reference : 181
-Simulation : 175
-Shopping : 163
-Video Players &amp; Editors : 148
-Arcade : 147
-Casual : 144
-Maps &amp; Navigation : 118
-Dating : 112
-Food &amp; Drink : 96
-Puzzle : 88
-Racing : 83
-Libraries &amp; Demo : 82
-Auto &amp; Vehicles : 82
-Role Playing : 80
-Strategy : 75
-Weather : 68
-Events : 63
-House &amp; Home : 61
-Adventure : 58
-Beauty : 53
-Art &amp; Design : 52
-Comics : 50
-Parenting : 44
-Card : 39
-Casino : 38
-Trivia : 37
-Educational : 33
-Educational;Education : 32
-Board : 32
-Education;Education : 26
-Word : 21
-Music : 17
-Casual;Pretend Play : 17
-Puzzle;Brain Games : 14
-Racing;Action &amp; Adventure : 11
-Casual;Brain Games : 11
-Entertainment;Music &amp; Video : 10
-Arcade;Action &amp; Adventure : 10
-Parenting;Education : 7
-Casual;Action &amp; Adventure : 7
-Board;Brain Games : 7
-Action;Action &amp; Adventure : 7
-Parenting;Music &amp; Video : 6
-Entertainment;Brain Games : 6
-Educational;Brain Games : 6
-Casual;Creativity : 5
-Art &amp; Design;Creativity : 5
-Simulation;Action &amp; Adventure : 4
-Educational;Pretend Play : 4
-Role Playing;Pretend Play : 3
-Entertainment;Creativity : 3
-Entertainment;Action &amp; Adventure : 3
-Educational;Creativity : 3
-Education;Pretend Play : 3
-Education;Creativity : 3
-Sports;Action &amp; Adventure : 2
-Puzzle;Creativity : 2
-Puzzle;Action &amp; Adventure : 2
-Music;Music &amp; Video : 2
-Entertainment;Pretend Play : 2
-Educational;Action &amp; Adventure : 2
-Education;Brain Games : 2
-Education;Action &amp; Adventure : 2
-Casual;Education : 2
-Board;Action &amp; Adventure : 2
-Adventure;Action &amp; Adventure : 2
-Video Players &amp; Editors;Music &amp; Video : 1
-Trivia;Education : 1
-Travel &amp; Local;Action &amp; Adventure : 1
-Tools;Education : 1
-Strategy;Education : 1
-Strategy;Creativity : 1
-Strategy;Action &amp; Adventure : 1
-Simulation;Pretend Play : 1
-Simulation;Education : 1
-Role Playing;Brain Games : 1
-Role Playing;Action &amp; Adventure : 1
-Racing;Pretend Play : 1
-Puzzle;Education : 1
-Parenting;Brain Games : 1
-Music &amp; Audio;Music &amp; Video : 1
-Lifestyle;Pretend Play : 1
-Lifestyle;Education : 1
-Health &amp; Fitness;Education : 1
-Health &amp; Fitness;Action &amp; Adventure : 1
-Entertainment;Education : 1
-Education;Music &amp; Video : 1
-Communication;Creativity : 1
-Comics;Creativity : 1
-Card;Action &amp; Adventure : 1
-Books &amp; Reference;Education : 1
-Arcade;Pretend Play : 1
+<pre>Tools : 8.47
+Entertainment : 6.09
+Education : 5.39
+Business : 4.65
+Productivity : 3.94
+Lifestyle : 3.9
+Finance : 3.72
+Medical : 3.55
+Sports : 3.4
+Personalization : 3.29
+Communication : 3.25
+Action : 3.11
+Health &amp; Fitness : 3.09
+Photography : 2.98
+News &amp; Magazines : 2.81
+Social : 2.65
+Travel &amp; Local : 2.33
+Shopping : 2.25
+Books &amp; Reference : 2.15
+Simulation : 2.06
+Dating : 1.86
+Arcade : 1.83
+Video Players &amp; Editors : 1.78
+Casual : 1.74
+Maps &amp; Navigation : 1.38
+Food &amp; Drink : 1.23
+Puzzle : 1.14
+Racing : 1.0
+Role Playing : 0.95
+Auto &amp; Vehicles : 0.92
+Strategy : 0.91
+Libraries &amp; Demo : 0.9
+Weather : 0.79
+House &amp; Home : 0.79
+Events : 0.72
+Adventure : 0.66
+Beauty : 0.61
+Art &amp; Design : 0.61
+Comics : 0.57
+Parenting : 0.49
+Card : 0.45
+Casino : 0.41
+Trivia : 0.4
+Educational;Education : 0.4
+Board : 0.39
+Educational : 0.38
+Education;Education : 0.34
+Word : 0.25
+Casual;Pretend Play : 0.24
+Music : 0.19
+Puzzle;Brain Games : 0.17
+Entertainment;Music &amp; Video : 0.17
+Racing;Action &amp; Adventure : 0.15
+Casual;Brain Games : 0.14
+Casual;Action &amp; Adventure : 0.14
+Arcade;Action &amp; Adventure : 0.13
+Action;Action &amp; Adventure : 0.1
+Educational;Pretend Play : 0.09
+Simulation;Action &amp; Adventure : 0.08
+Parenting;Education : 0.08
+Entertainment;Brain Games : 0.08
+Casual;Creativity : 0.07
+Art &amp; Design;Creativity : 0.07
+Parenting;Music &amp; Video : 0.06
+Educational;Brain Games : 0.06
+Education;Pretend Play : 0.06
+Board;Brain Games : 0.06
+Role Playing;Pretend Play : 0.05
+Education;Creativity : 0.05
+Role Playing;Action &amp; Adventure : 0.03
+Puzzle;Action &amp; Adventure : 0.03
+Entertainment;Creativity : 0.03
+Entertainment;Action &amp; Adventure : 0.03
+Educational;Creativity : 0.03
+Educational;Action &amp; Adventure : 0.03
+Education;Music &amp; Video : 0.03
+Education;Brain Games : 0.03
+Education;Action &amp; Adventure : 0.03
+Adventure;Action &amp; Adventure : 0.03
+Video Players &amp; Editors;Music &amp; Video : 0.02
+Sports;Action &amp; Adventure : 0.02
+Simulation;Pretend Play : 0.02
+Puzzle;Creativity : 0.02
+Music;Music &amp; Video : 0.02
+Entertainment;Pretend Play : 0.02
+Casual;Education : 0.02
+Board;Action &amp; Adventure : 0.02
+Video Players &amp; Editors;Creativity : 0.01
+Trivia;Education : 0.01
+Travel &amp; Local;Action &amp; Adventure : 0.01
+Tools;Education : 0.01
+Strategy;Education : 0.01
+Strategy;Creativity : 0.01
+Strategy;Action &amp; Adventure : 0.01
+Simulation;Education : 0.01
+Role Playing;Brain Games : 0.01
+Racing;Pretend Play : 0.01
+Puzzle;Education : 0.01
+Parenting;Brain Games : 0.01
+Music &amp; Audio;Music &amp; Video : 0.01
+Lifestyle;Pretend Play : 0.01
+Lifestyle;Education : 0.01
+Health &amp; Fitness;Education : 0.01
+Health &amp; Fitness;Action &amp; Adventure : 0.01
+Entertainment;Education : 0.01
+Communication;Creativity : 0.01
+Comics;Creativity : 0.01
+Card;Action &amp; Adventure : 0.01
+Books &amp; Reference;Education : 0.01
+Art &amp; Design;Pretend Play : 0.01
+Art &amp; Design;Action &amp; Adventure : 0.01
+Arcade;Pretend Play : 0.01
+Adventure;Education : 0.01
 </pre>
 </div>
 </div>
@@ -2700,19 +2647,67 @@ Arcade;Pretend Play : 1
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Lets-find-out-which-genre-is-the-most-popular">Lets find out which genre is the most popular<a class="anchor-link" href="#Lets-find-out-which-genre-is-the-most-popular">&#182;</a></h2><p>For Apple store this will need to be done by the total number of user ratings
-For Google play this will be done by the total number of downloads</p>
+<h2 id="Lets-find-out-which-genre/category-is-the-most-popular">Lets find out which genre/category is the most popular<a class="anchor-link" href="#Lets-find-out-which-genre/category-is-the-most-popular">&#182;</a></h2><p>For Apple store this will need to be done by the total number of user ratings
+For Google play this will be done by the total number of downloads due to the data provided from both stores</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">apple_cols</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[92]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;id&#39;,
+ &#39;track_name&#39;,
+ &#39;size_bytes&#39;,
+ &#39;currency&#39;,
+ &#39;price&#39;,
+ &#39;rating_count_tot&#39;,
+ &#39;rating_count_ver&#39;,
+ &#39;user_rating&#39;,
+ &#39;user_rating_ver&#39;,
+ &#39;ver&#39;,
+ &#39;cont_rating&#39;,
+ &#39;prime_genre&#39;,
+ &#39;sup_devices.num&#39;,
+ &#39;ipadSc_urls.num&#39;,
+ &#39;lang.num&#39;,
+ &#39;vpp_lic&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># prime_genre = index 11</span>
-<span class="n">cnt_of_apps_to_genre</span> <span class="o">=</span> <span class="n">freq_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">cnt_of_apple_apps_to_genre</span> <span class="o">=</span> <span class="n">freq_table</span><span class="p">(</span><span class="n">apple_final</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2722,10 +2717,11 @@ For Google play this will be done by the total number of downloads</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">cnt_of_apps_to_genre</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Average Rating count per prime_genre</span>
+<span class="k">for</span> <span class="n">genre</span> <span class="ow">in</span> <span class="n">cnt_of_apple_apps_to_genre</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
     <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">len_genre</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">apple_final</span><span class="p">:</span>
@@ -2750,29 +2746,29 @@ For Google play this will be done by the total number of downloads</p>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Business  -  6367.8
-Catalogs  -  1779.56
-Education  -  6266.33
-Social Networking  -  53078.2
-Medical  -  459.75
-Entertainment  -  10822.96
-Finance  -  13522.26
-Health &amp; Fitness  -  19952.32
-Utilities  -  14010.1
-Lifestyle  -  8978.31
-Weather  -  47220.94
-News  -  15892.72
-Reference  -  67447.9
-Music  -  56482.03
-Games  -  18924.69
-Food &amp; Drink  -  20179.09
-Shopping  -  18746.68
-Book  -  8498.33
-Photo &amp; Video  -  27249.89
-Travel  -  20216.02
-Productivity  -  19053.89
-Sports  -  20128.97
-Navigation  -  25972.05
+<pre>Social Networking  -  72916.55
+Photo &amp; Video  -  28441.54
+Games  -  22985.21
+Music  -  58205.03
+Reference  -  79350.47
+Health &amp; Fitness  -  24037.63
+Weather  -  54215.3
+Utilities  -  19900.47
+Travel  -  31358.5
+Shopping  -  27816.2
+News  -  21750.07
+Navigation  -  86090.33
+Lifestyle  -  16739.35
+Entertainment  -  14364.77
+Food &amp; Drink  -  33333.92
+Sports  -  23008.9
+Book  -  46384.92
+Finance  -  32367.03
+Education  -  7003.98
+Productivity  -  21799.15
+Business  -  7491.12
+Catalogs  -  4004.0
+Medical  -  612.0
 </pre>
 </div>
 </div>
@@ -2783,7 +2779,58 @@ Navigation  -  25972.05
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1">#print(appleDS[:1])</span>
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">apple_final</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">app</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Navigation&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;id = </span><span class="si">{}</span><span class="s1">, Name = </span><span class="si">{}</span><span class="s1">, number of ratings = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">app</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">app</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">app</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+        <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of apps in Navigation: &#39;</span><span class="p">,</span><span class="n">cnt</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>id = 323229106, Name = Waze - GPS Navigation, Maps &amp; Real-time Traffic, number of ratings = 345046
+id = 585027354, Name = Google Maps - Navigation &amp; Transit, number of ratings = 154911
+id = 329541503, Name = GeocachingÂ®, number of ratings = 12811
+id = 504677517, Name = CoPilot GPS â Car Navigation &amp; Offline Maps, number of ratings = 3582
+id = 344176018, Name = ImmobilienScout24: Real Estate Search in Germany, number of ratings = 187
+id = 463431091, Name = Railway Route Search, number of ratings = 5
+Total number of apps in Navigation:  6
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Apples-most-popular-genre">Apples most popular genre<a class="anchor-link" href="#Apples-most-popular-genre">&#182;</a></h2><p>The Navigation genre has the largest number of average ratings per app on the apple store. But when we take a closer look at the data associated with Navigation, the truth is there are only 6 apps of which 2, maybe 3 have significant reviews. As this is also on IOS it doesn't have an impact analysis of Apple's own mapping app.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_cols</span>
@@ -2799,7 +2846,7 @@ Navigation  -  25972.05
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[41]:</div>
+    <div class="prompt output_prompt">Out[83]:</div>
 
 
 
@@ -2828,10 +2875,10 @@ Navigation  -  25972.05
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_genres</span> <span class="o">=</span> <span class="n">freq_table</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">google_genres</span> <span class="o">=</span> <span class="n">freq_table_percentage</span><span class="p">(</span><span class="n">google_final</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2841,7 +2888,7 @@ Navigation  -  25972.05
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">google_genres</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -2870,39 +2917,39 @@ Navigation  -  25972.05
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>GAME  -  7900871.68
-BUSINESS  -  1118272.24
-SHOPPING  -  3781218.31
-COMMUNICATION  -  3729123.77
-PRODUCTIVITY  -  5588555.49
-EDUCATION  -  1152469.14
-VIDEO_PLAYERS  -  14369808.92
-SOCIAL  -  2745491.89
-NEWS_AND_MAGAZINES  -  1254808.16
-DATING  -  436205.87
-PARENTING  -  542603.62
-LIBRARIES_AND_DEMO  -  524339.15
-HOUSE_AND_HOME  -  749220.67
-COMICS  -  664042.16
-FAMILY  -  2501813.21
-TOOLS  -  7006861.87
-MAPS_AND_NAVIGATION  -  2390345.59
-FINANCE  -  800203.0
-MEDICAL  -  90917.7
-PHOTOGRAPHY  -  9554286.79
-WEATHER  -  4342478.24
-TRAVEL_AND_LOCAL  -  2435541.45
-AUTO_AND_VEHICLES  -  647317.82
-BOOKS_AND_REFERENCE  -  7792178.23
-ENTERTAINMENT  -  8850175.44
-EVENTS  -  253542.22
-ART_AND_DESIGN  -  1843233.93
-LIFESTYLE  -  1388516.25
-SPORTS  -  3217265.27
-HEALTH_AND_FITNESS  -  3924993.11
+<pre>ART_AND_DESIGN  -  1986335.09
+AUTO_AND_VEHICLES  -  654074.83
 BEAUTY  -  513151.89
-FOOD_AND_DRINK  -  1610820.32
-PERSONALIZATION  -  3350656.85
+BOOKS_AND_REFERENCE  -  8329168.94
+BUSINESS  -  1712290.15
+COMICS  -  859042.16
+COMMUNICATION  -  38550548.04
+DATING  -  861409.55
+EDUCATION  -  1833495.15
+ENTERTAINMENT  -  11767380.95
+EVENTS  -  253542.22
+FINANCE  -  1365500.4
+FOOD_AND_DRINK  -  1951283.81
+HEALTH_AND_FITNESS  -  4219697.06
+HOUSE_AND_HOME  -  1385541.46
+LIBRARIES_AND_DEMO  -  649314.05
+LIFESTYLE  -  1447458.98
+GAME  -  15571586.69
+FAMILY  -  3718295.04
+MEDICAL  -  121161.88
+SOCIAL  -  23628689.23
+SHOPPING  -  7103190.79
+PHOTOGRAPHY  -  17840110.4
+SPORTS  -  3750580.64
+TRAVEL_AND_LOCAL  -  14120454.08
+TOOLS  -  10902378.83
+PERSONALIZATION  -  5240358.99
+PRODUCTIVITY  -  16787331.34
+PARENTING  -  552875.18
+WEATHER  -  5212877.1
+VIDEO_PLAYERS  -  24878048.86
+NEWS_AND_MAGAZINES  -  9626407.36
+MAPS_AND_NAVIGATION  -  4115374.21
 </pre>
 </div>
 </div>
@@ -2913,16 +2960,58 @@ PERSONALIZATION  -  3350656.85
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[109]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">googleDS</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">google_final</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">app</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;COMMUNICATION&#39;</span><span class="p">:</span>
+        <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+<span class="nb">print</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[&#39;App&#39;, &#39;Category&#39;, &#39;Rating&#39;, &#39;Reviews&#39;, &#39;Size&#39;, &#39;Installs&#39;, &#39;Type&#39;, &#39;Price&#39;, &#39;Content Rating&#39;, &#39;Genres&#39;, &#39;Last Updated&#39;, &#39;Current Ver&#39;, &#39;Android Ver&#39;], [&#39;Photo Editor &amp; Candy Camera &amp; Grid &amp; ScrapBook&#39;, &#39;ART_AND_DESIGN&#39;, &#39;4.1&#39;, &#39;159&#39;, &#39;19M&#39;, &#39;10,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Art &amp; Design&#39;, &#39;January 7, 2018&#39;, &#39;1.0.0&#39;, &#39;4.0.3 and up&#39;], [&#39;Coloring book moana&#39;, &#39;ART_AND_DESIGN&#39;, &#39;3.9&#39;, &#39;967&#39;, &#39;14M&#39;, &#39;500,000+&#39;, &#39;Free&#39;, &#39;0&#39;, &#39;Everyone&#39;, &#39;Art &amp; Design;Pretend Play&#39;, &#39;January 15, 2018&#39;, &#39;2.0.0&#39;, &#39;4.0.3 and up&#39;]]
+285
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Google's-most-popular-genre/category">Google's most popular genre/category<a class="anchor-link" href="#Google's-most-popular-genre/category">&#182;</a></h2><p>Communications has the highest number of installs per category on the google store. significantly, there are 285 applications in this cateogry.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Outcome">Outcome<a class="anchor-link" href="#Outcome">&#182;</a></h1><p>This was just a basic introduction to the key concepts of data analytics in python. There is a lot more questions to ask and indepth analysis that can be done here. For example if we were able to find the number of IOS devices in the world, how many installs of Apple Maps or iTunes is that, as this influences the music and navigation genres.</p>
+<p>As it is, we are looking at potential markets that we might want to design and deploy an app for which we believe can make us good profits. A business would need to weigh up the over saturated markets such as communication apps, vs the not so saturated but heavily dominated market such as navigation.</p>
+
+</div>
+</div>
 </div>
  
 
