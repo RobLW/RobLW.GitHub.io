@@ -286,7 +286,7 @@ body {
 }
 @media (min-width: 75em) {
   .page {
-    padding-left: 0;
+    padding-left: 20;
   }
 }
 
