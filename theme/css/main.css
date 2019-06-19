@@ -284,7 +284,7 @@ body {
     padding-left: 10%;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 70em) {
   .page {
     padding-left: 0%;
   }
