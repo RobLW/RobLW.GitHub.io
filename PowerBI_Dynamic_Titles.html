@@ -7,9 +7,9 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>#Statistics Articles | Learning My Data
+  <title>Power BI - Dynamic Titles | Learning My Data
 </title>
-  <link rel="canonical" href="https://RobLW.GitHub.io/tag/statistics.html">
+  <link rel="canonical" href="https://RobLW.GitHub.io/PowerBI_Dynamic_Titles.html">
 
 
   <link rel="apple-touch-icon" href="https://RobLW.GitHub.io/apple-touch-icon.png" sizes="180x180">
@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="https://RobLW.GitHub.io/theme/css/style.css">
 
 
+<meta name="description" content="Changing the title on your visual, based on your slicer selections">
 </head>
 
 <body>
@@ -54,58 +55,38 @@
 
   <div class="main">
     <div class="container">
-      <h1>#Statistics Articles
+      <h1>Power BI - Dynamic Titles
 </h1>
       <hr>
-<article class="row teaser">
-  <header class="col-sm-4 text-muted">
-    <ul>
-      <li title="2019-07-23T00:00:00+01:00">
+<article class="article">
+  <header>
+    <ul class="list-inline">
+      <li class="list-inline-item text-muted" title="2019-10-02T00:00:00+01:00">
         <i class="fa fa-clock-o"></i>
-        Tue 23 July 2019
+        Wed 02 October 2019
       </li>
-      <li>
+      <li class="list-inline-item">
         <i class="fa fa-folder-open-o"></i>
-        <a href="https://RobLW.GitHub.io/category/terminology-series.html">Terminology-Series</a>
+        <a href="https://RobLW.GitHub.io/category/power-bi.html">Power BI</a>
       </li>
-	  <li>
-		<i class="fa fa-book"></i>
-		389 words
-		2 min read
-	  </li>
+      <li class="list-inline-item">
+        <i class="fa fa-files-o"></i>
+        <a href="https://RobLW.GitHub.io/tag/power-bi.html">#Power BI</a>,         <a href="https://RobLW.GitHub.io/tag/visuals.html">#Visuals</a>      </li>
     </ul>
   </header>
-  <div class="col-sm-8">
-    <h4 class="title"><a href="https://RobLW.GitHub.io/Terminology_sampling.html">Terminology in Statistics: Sampling</a></h4>
-    <div class="content">
-      A collection of terminology I'm picking up as I learn the basics of stats. this page focuses on sampling
-    </div>
-  </div>
-</article>
-<hr>
-<article class="row teaser">
-  <header class="col-sm-4 text-muted">
-    <ul>
-      <li title="2019-07-19T00:00:00+01:00">
-        <i class="fa fa-clock-o"></i>
-        Fri 19 July 2019
-      </li>
-      <li>
-        <i class="fa fa-folder-open-o"></i>
-        <a href="https://RobLW.GitHub.io/category/terminology-series.html">Terminology-Series</a>
-      </li>
-	  <li>
-		<i class="fa fa-book"></i>
-		1148 words
-		5 min read
-	  </li>
-    </ul>
-  </header>
-  <div class="col-sm-8">
-    <h4 class="title"><a href="https://RobLW.GitHub.io/Terminology_in_statistics.html">Terminology in Statistics</a></h4>
-    <div class="content">
-      A collection of terminology I'm picking up as I learn the basics of stats
-    </div>
+  <div class="content">
+    <h3>Power BI - Dynamic Titles on Visuals</h3>
+<p>Your best friend here is the DAX function <a href="https://docs.microsoft.com/en-us/dax/selectedvalue-function"><code>SELEVEDVALUES()</code></a></p>
+<p>In power BI you have the ability to set custom, hardcoded, titles on visuals by going to the Format pane and switching on the option for Title and populating the Title Text box.
+If you right mouse click on that box (I wish Microsoft would put a little FX button next to it) you will get a pop up to be able to add a Conditional Formatting title.</p>
+<p><strong>Lets go through the steps</strong></p>
+<ol>
+<li>Create a new measure in your table. </li>
+<li>This measure should be similar to [ <code>Chart Title = "Number of logins for " &amp; SELECTEDVALUE('o365 Signin'[Application], "Multiple Applications")</code> ]</li>
+<li>The SELECTEDVALUE() function requires one argument, being a column from your table. There is an optional argument which prints alternative text if the result of SELECTEDVALUE is blank, such as when you have multiple selections in your user slicer.</li>
+<li>Once your measure is ready, right mouse click on your title text input box and select conditional formatting. Select your new measure.</li>
+</ol>
+<p>Job done. Every time you make a change in your slicer relating to the column you built the measure on, it will update your visual title.</p>
   </div>
 </article>
     </div>

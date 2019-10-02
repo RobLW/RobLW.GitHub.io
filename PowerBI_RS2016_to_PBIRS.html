@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Upgrading ReportServer 2016 to Power BI RS | Learning My Data
+</title>
+  <link rel="canonical" href="https://RobLW.GitHub.io/PowerBI_RS2016_to_PBIRS.html">
+
+
+  <link rel="apple-touch-icon" href="https://RobLW.GitHub.io/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" type="image/png" href="https://RobLW.GitHub.io/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="https://RobLW.GitHub.io/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/ico" href="https://RobLW.GitHub.io/favicon.ico">
+  <link rel="icon" type="image/svg" href="https://RobLW.GitHub.io/safari-pinned-tab.svg" sizes="48x48">
+  <link rel="android-chrome" href="https://RobLW.GitHub.io/android-chrome-192x192.png" sizes="192x192">
+  <!--<link rel="manifest" href="https://RobLW.GitHub.io/manifest.json"> -->
+  <link rel="manifest" href="https://RobLW.GitHub.io/site.webmanifest">
+  <meta name="theme-color" content="#333333">
+
+  <link rel="stylesheet" href="https://RobLW.GitHub.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://RobLW.GitHub.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://RobLW.GitHub.io/theme/css/pygments/emacs.min.css">
+  <link rel="stylesheet" href="https://RobLW.GitHub.io/theme/css/style.css">
+
+
+<meta name="description" content="Upgrading a native Report Server (2016 in my experience) to Power BI Report Server.">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <a href="https://RobLW.GitHub.io">
+            <img class="img-fluid" src=https://RobLW.GitHub.io/images/Rob-Williams-nowww.png alt="Learning My Data">
+          </a>
+        </div>
+        <div class="col-sm-8">
+          <h1 class="title"><a href="https://RobLW.GitHub.io">Learning My Data</a></h1>
+          <p class="text-muted">A blog of my journey through data analytics, heading to data science</p>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://getpelican.com/" target="_blank">| Pelican |</a></li>
+            <li class="list-inline-item"><a href="https://github.com/RobLW" target="_blank">| My GitHub |</a></li>
+            <li class="list-inline-item"><a href="https://en.wikipedia.org/wiki/Zeta" target="_blank">| &#950; |</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>Upgrading ReportServer 2016 to Power BI RS
+</h1>
+      <hr>
+<article class="article">
+  <header>
+    <ul class="list-inline">
+      <li class="list-inline-item text-muted" title="2019-10-01T00:00:00+01:00">
+        <i class="fa fa-clock-o"></i>
+        Tue 01 October 2019
+      </li>
+      <li class="list-inline-item">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="https://RobLW.GitHub.io/category/power-bi.html">Power BI</a>
+      </li>
+      <li class="list-inline-item">
+        <i class="fa fa-files-o"></i>
+        <a href="https://RobLW.GitHub.io/tag/power-bi.html">#Power BI</a>,         <a href="https://RobLW.GitHub.io/tag/report-server.html">#Report Server</a>      </li>
+    </ul>
+  </header>
+  <div class="content">
+    <h2>Upgrading Report Server 2016 to Power BI Report Server</h2>
+<p>The version of Report Server 2016 that we had installed at the company I just joined, did not support rendering PBIX files in the browser. Every time the user clicked on the file to see the report it just downloaded.
+It's a small company, and I find myself doing everything from data analytics, to DBA work and helping people with printers and screens. So I took care of upgrading the report server.</p>
+<p>At the time of upgrading to Power BI Report Server (May 2019) the September 2019 edition came out 2 weeks later. Upgrading from May to September is as simple as downloading the installer to your server and running it. Nothing complex to be done. Nice!</p>
+<h2>Straight to the point</h2>
+<ol>
+<li>Backup your existing ReportServer and ReportServerTempDB databases.</li>
+<li>Install Power BI Report Server onto your choosen machine</li>
+<li>If you have Report Server (2016) already running on this same machine, go into it's configuration manager and use the <strong>Encryption Keys</strong> section to save a backup of the key, you'll need this later. Stop the service. Ensure the corrosponding windows service does not auto start on the next reboot.</li>
+<li>Load the <strong>Power BI Report Server Configuration Manager</strong><ol>
+<li>Connect to your PBIRS instance</li>
+<li>Go to Web Service URL section and change the Virtual Directory if needed. If you want to replace the previous RS2016 with the same address just click "apply" it will warn you that it is unreserving the old usage of the address and setting it up for PBIRS</li>
+<li>Go to Database section and click Change Database. Select the Choose an existing database option then select next</li>
+<li>Select the server name and decide which admin user you want to connect to that server as. Someone who has access to control the ReportServer and ReportServerTempDB databases.</li>
+<li>In the next screen select your ReportServer database. If your user has the right access level it should show "native" (possibly sharepoint if your install uses this? never tried). If you don't get native then your user access level is likely wrong.</li>
+<li>The next credentials you want to supply will be something like NT SERVICE\PowerBIReportServer user if you use Service Account authentication. Make it a service account that won't get disabled if you leave the company.</li>
+<li>You can now continue to deploy to that database. If you get errors about not being able to commit the SQL its likely because the user being used doesn't have write/ownership of the database.</li>
+</ol>
+</li>
+<li>Next go to Web Portal URL section and do the same as you did in step 3, but with the relevent address value.</li>
+<li>Go into the e-mail settings and populate with your relevent SMTP environment to allow subscriptions via email</li>
+<li>Go into Encryption Keys and pull in the backup key you saved earlier.  </li>
+</ol>
+<p><strong>You should now have a working PBIRS running and you can visit the web addresses setup in Web Service URL and Web Portal URL to confirm.</strong></p>
+<h3>Considerations</h3>
+<p>I made the mistake of restoring my backups of the databases, to different names and setup my PBIRS to use those restores. The problem here is that there are many references to the old ReportServerTempDB.<br>
+Because of this I found that our subscriptions were not working as my service account was trying to access the old DB name (ReportServeRTempDB rather than the restored version) that it had no access to (and would soon be removed).
+Make your backup, and use the original databases after you take down the original service. It'll save you problems later on.</p>
+<p>If you decided to clone your database or restore a backup to another name and point your new PBIRS at these. You will likely need to rename those databases to ReportServer and ReportServerTempDB at a later date, and update the RS configuration manager to the new names.</p>
+<p>If you get stuck, visit the help forums, people are great there: https://community.powerbi.com/t5/Report-Server/bd-p/ReportServer</p>
+  </div>
+</article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+       <ul class="col-sm-6 list-inline">
+          <li class="list-inline-item"><a href="https://RobLW.GitHub.io/archives.html">Archives</a></li>
+          <li class="list-inline-item"><a href="https://RobLW.GitHub.io/categories.html">Categories</a></li>
+          <li class="list-inline-item"><a href="https://RobLW.GitHub.io/tags.html">Tags</a></li>
+        </ul>
+        <p class="col-sm-6 text-sm-right text-muted">
+          Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a> / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
