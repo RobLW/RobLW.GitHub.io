@@ -42,7 +42,7 @@
         </div>
         <div class="col-sm-8">
           <h1 class="title"><a href="https://RobLW.GitHub.io">Learning My Data</a></h1>
-          <p class="text-muted">A blog of my journey through data analytics, heading to data science</p>
+          <p class="text-muted">A blog-log of my learning - Power BI, Data Analytics, Maths and More.</p>
           <ul class="list-inline">
             <li class="list-inline-item"><a href="http://getpelican.com/" target="_blank">| Pelican |</a></li>
             <li class="list-inline-item"><a href="https://github.com/RobLW" target="_blank">| My GitHub |</a></li>
@@ -76,7 +76,7 @@
   </header>
   <div class="content">
     <h3>Power BI - Dynamic Titles on Visuals</h3>
-<p>Your best friend here is the DAX function <a href="https://docs.microsoft.com/en-us/dax/selectedvalue-function"><code>SELEVEDVALUES()</code></a></p>
+<p>Your best friend here is the DAX function <a href="https://docs.microsoft.com/en-us/dax/selectedvalue-function"><code>SELEVEDVALUE()</code></a></p>
 <p>In power BI you have the ability to set custom, hardcoded, titles on visuals by going to the Format pane and switching on the option for Title and populating the Title Text box.
 If you right mouse click on that box (I wish Microsoft would put a little FX button next to it) you will get a pop up to be able to add a Conditional Formatting title.</p>
 <p><strong>Lets go through the steps</strong></p>
@@ -87,6 +87,18 @@ If you right mouse click on that box (I wish Microsoft would put a little FX but
 <li>Once your measure is ready, right mouse click on your title text input box and select conditional formatting. Select your new measure.</li>
 </ol>
 <p>Job done. Every time you make a change in your slicer relating to the column you built the measure on, it will update your visual title.</p>
+<h3>Extra flexibility</h3>
+<p>I found that when I was dealing with data that allowed users to select date ranges that were 1 year apart, 2 years or any number of years, I wanted the title to show the first and last year of their selected date range.
+I achieved this b making a measure along the lines of this:</p>
+<div class="highlight"><pre><span></span><span class="w">    </span><span class="n">Title</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Selected</span><span class="w"> </span><span class="n">Years</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">SELECTEDVALUE</span><span class="p">(</span><span class="n">DateTable2</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nf">YEAR</span><span class="p">(</span><span class="nf">MIN</span><span class="p">(</span><span class="n">DateTable2</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">)))</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span>
+<span class="w">        </span><span class="ss">&quot; - &quot;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
+<span class="w">        </span><span class="n">SELECTEDVALUE</span><span class="p">(</span><span class="n">DateTable2</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nf">YEAR</span><span class="p">(</span><span class="nf">MAX</span><span class="p">(</span><span class="n">DateTable2</span><span class="o">[</span><span class="n">Date</span><span class="o">]</span><span class="p">)))</span><span class="w"></span>
+</pre></div>
+
+
+<p>Because I wanted to use those selected years on multiple visuals that had different titles but same year(s) in those titles I could then create additional "title measures" such as:  </p>
+<p><code>Title of visual = "No. of something :  &amp; [Title - Selected Years]</code></p>
   </div>
 </article>
     </div>
